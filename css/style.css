@@ -1133,14 +1133,14 @@ article .content h6 {
 }
 article .content h1 {
   font-size: 1.85rem;
-  border-bottom: 1.5px solid #dedbce;
+  border-bottom: 1.5px solid #dcd3c9;
   padding-bottom: 0.4em;
   margin-top: 1em;
   color: #a88b9d;
 }
 article .content h2 {
   font-size: 1.55rem;
-  border-bottom: 1px dashed #dedbce;
+  border-bottom: 1px dashed #dcd3c9;
   padding-bottom: 0.3em;
   color: #8c9c90;
 }
@@ -1159,6 +1159,24 @@ article .content h5 {
 article .content h6 {
   font-size: 0.9rem;
   color: #859b9a;
+}
+article .content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.95em;
+}
+article .content table th,
+article .content table td {
+  border: 1.2px solid #dcd3c9;
+  padding: 0.7em 1.2em;
+  line-height: 1.5;
+}
+article .content table th {
+  background-color: #f2ede6;
+  color: #6a635d;
+  font-weight: 700;
+  text-align: left;
 }
 article .content img,
 article .content video {
@@ -1203,7 +1221,9 @@ article .content blockquote footer cite:before {
   content: "—";
   padding: 0 0.5em;
 }
-article .content code {
+p > code,
+li > code,
+td > code {
   font-family: "Consolas", "Menlo", "方正屏显雅宋简体", monospace;
   font-size: 0.92em;
   color: #8f6c5c;
@@ -1213,32 +1233,56 @@ article .content code {
   margin: 0 2px;
   border: 1px solid #e8e2d9;
 }
-article .content figure.highlight,
-article .content pre {
+figure.highlight {
   background-color: #f7f5f0;
   border: 1px solid #e8e2d9;
   border-radius: 4px;
+  margin: 1.5em 0;
+  padding: 0.5em 0;
+  overflow-x: auto;
 }
-article .content figure.highlight .code,
-article .content pre .code,
-article .content figure.highlight code,
-article .content pre code {
+figure.highlight pre,
+figure.highlight code,
+figure.highlight table,
+figure.highlight td,
+figure.highlight tr,
+figure.highlight th {
+  background: transparent !important;
+  border: none !important;
+  padding: 0;
+  margin: 0;
+}
+figure.highlight .code {
+  padding: 0.5em 1.2em;
+}
+figure.highlight .code pre {
   color: #6a635d;
+  font-family: "Consolas", "Menlo", "方正屏显雅宋简体", monospace;
+  line-height: 1.6;
 }
-article .content ul,
-article .content ol {
+figure.highlight .gutter {
+  padding: 0.5em 1em;
+  border-right: 1px dashed #dcd3c9 !important;
+}
+figure.highlight .gutter pre {
+  color: #b8a892;
+  text-align: right;
+  font-family: "Consolas", "Menlo", "方正屏显雅宋简体", monospace;
+}
+ul,
+ol {
   padding-left: 1.5em;
   margin: 1em 0;
 }
-article .content ul li,
-article .content ol li {
+ul li,
+ol li {
   margin: 0.5em 0;
 }
-article .content ul li::marker,
-article .content ol li::marker {
+ul li::marker,
+ol li::marker {
   color: #b8a892;
 }
-article .content hr {
+hr {
   height: 1px;
   border: none;
   border-top: 1px solid #dedbce;
