@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Hugging Face (HF) 的地位相当于“AI 界的 GitHub”。它是目前全球最大的预训练模型、数据集和演示应用（Spaces）的托管平台 1. Hugging Face 的三大板块    模块 功能描述 研究应用     Models 托管预训练模型的权重、配置文件和代码。 下载 Llama 3 或 OpenVLA 权重。   Datasets 托管标准化的数据集（支持流式加载）。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HuggingFace">
+<meta property="og:url" content="https://yancoranv.github.io/2026/04/14/Coding/HuggingFace/index.html">
+<meta property="og:site_name" content="Hi. Yan here.">
+<meta property="og:description" content="Hugging Face (HF) 的地位相当于“AI 界的 GitHub”。它是目前全球最大的预训练模型、数据集和演示应用（Spaces）的托管平台 1. Hugging Face 的三大板块    模块 功能描述 研究应用     Models 托管预训练模型的权重、配置文件和代码。 下载 Llama 3 或 OpenVLA 权重。   Datasets 托管标准化的数据集（支持流式加载）。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2026-04-14T13:26:00.760Z">
+<meta property="article:modified_time" content="2026-04-14T13:26:00.760Z">
+<meta property="article:author" content="Yan Zhanxi">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>HuggingFace</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Writing</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2026/04/14/Coding/pkl%20&%20npz%20&%20yaml%20&%20yml/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2026/04/14/Coding/Python%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%20(.venv)/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://yancoranv.github.io/2026/04/14/Coding/HuggingFace/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://yancoranv.github.io/2026/04/14/Coding/HuggingFace/&text=HuggingFace"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://yancoranv.github.io/2026/04/14/Coding/HuggingFace/&title=HuggingFace"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://yancoranv.github.io/2026/04/14/Coding/HuggingFace/&is_video=false&description=HuggingFace"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=HuggingFace&body=Check out this article: https://yancoranv.github.io/2026/04/14/Coding/HuggingFace/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://yancoranv.github.io/2026/04/14/Coding/HuggingFace/&title=HuggingFace"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://yancoranv.github.io/2026/04/14/Coding/HuggingFace/&title=HuggingFace"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://yancoranv.github.io/2026/04/14/Coding/HuggingFace/&title=HuggingFace"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://yancoranv.github.io/2026/04/14/Coding/HuggingFace/&title=HuggingFace"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://yancoranv.github.io/2026/04/14/Coding/HuggingFace/&name=HuggingFace&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://yancoranv.github.io/2026/04/14/Coding/HuggingFace/&t=HuggingFace"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">1. Hugging Face 的三大板块</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">2. 核心库：Transformers</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#A-%E7%BB%9F%E4%B8%80%E7%9A%84-API-%E9%80%BB%E8%BE%91"><span class="toc-number">2.1.</span> <span class="toc-text">A. 统一的 API 逻辑</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#B-%E5%85%B3%E9%94%AE%E7%BB%84%E4%BB%B6%EF%BC%9ATokenizer-Processor"><span class="toc-number">2.2.</span> <span class="toc-text">B. 关键组件：Tokenizer &amp; Processor</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">3. 命令行工具：huggingface-cli</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">4. 存储管理：Cache（缓存）机制</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        HuggingFace
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Yan Zhanxi</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2026-04-14T13:26:00.760Z" class="dt-published" itemprop="datePublished">2026-04-14</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/Coding/">Coding</a>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>Hugging Face (HF) 的地位相当于“AI 界的 GitHub”。它是目前全球最大的预训练模型、数据集和演示应用（Spaces）的托管平台</p>
+<h1>1. Hugging Face 的三大板块</h1>
+<table>
+<thead>
+<tr>
+<th>模块</th>
+<th>功能描述</th>
+<th>研究应用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Models</td>
+<td>托管预训练模型的权重、配置文件和代码。</td>
+<td>下载 Llama 3 或 OpenVLA 权重。</td>
+</tr>
+<tr>
+<td>Datasets</td>
+<td>托管标准化的数据集（支持流式加载）。</td>
+<td>获取机器人动作数据集（如 AMASS）或发布你自己的数据集。</td>
+</tr>
+<tr>
+<td>Spaces</td>
+<td>托管交互式 Web 演示（基于 Gradio 或 Streamlit）。</td>
+<td>快速展示你的机器人动作生成效果，无需他人配置环境。</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>流式加载 (Streaming Loading)：流式加载是指按需获取数据，而不是先下载完整的文件再读取，就像在线看视频。你点击播放，播放器只向服务器请求当前几秒钟的数据
+<ul>
+<li>使用： <code>datasets</code> 库中的 <code>streaming=True</code></li>
+</ul>
+</li>
+<li>Gradio 与 Streamlit，这两者都是 Python 库，旨在让算法工程师不需要掌握前端技术（HTML/CSS/JS），就能快速搭建一个可交互的 Web 界面</li>
+<li>Gradio
+<ul>
+<li>定位：模型演示 (Model-first)</li>
+<li>特点：极其强调“输入 -&gt; 模型 -&gt; 输出”的逻辑。它预设了大量的组件（如：上传图像、录入音频、显示 3D 模型）</li>
+<li>优势：在 Hugging Face 上生态极好，几行代码就能搞定</li>
+</ul>
+</li>
+<li>Streamlit
+<ul>
+<li>定位：数据应用 (App-first)</li>
+<li>特点：更像是在写一个可以交互的仪表盘（Dashboard）。它的逻辑更接近网页，你可以自由安排侧边栏、表格、图表和文本的位置</li>
+<li>优势：灵活性更高，适合做复杂的数据分析工具</li>
+</ul>
+</li>
+</ul>
+<h1>2. 核心库：Transformers</h1>
+<p>虽然 HF 是个网站，但用的最多的是它的 Python 库。<code>transformers</code> 库实现了 AI 模型调用的高度标准化</p>
+<h2 id="A-统一的-API-逻辑">A. 统一的 API 逻辑</h2>
+<p>无论模型架构多复杂，加载逻辑通常只有两行：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> AutoModel, AutoTokenizer</span><br><span class="line"></span><br><span class="line"><span class="comment"># 只要知道模型 ID (User/Repo)，库会自动下载并缓存</span></span><br><span class="line">model = AutoModel.from_pretrained(<span class="string">&quot;openvla/openvla-7b&quot;</span>)</span><br><span class="line">tokenizer = AutoTokenizer.from_pretrained(<span class="string">&quot;openvla/openvla-7b&quot;</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="B-关键组件：Tokenizer-Processor">B. 关键组件：Tokenizer &amp; Processor</h2>
+<ul>
+<li>Tokenizer: 将文本转为数字（Token ID），用于纯文本模型</li>
+<li>Processor: Processor 会同时处理图像和文本，将其转化为模型能理解的张量（Tensors）</li>
+</ul>
+<h1>3. 命令行工具：huggingface-cli</h1>
+<ul>
+<li>登录: 处理受限模型（如 Llama 3 需要申请权限）时必用</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">huggingface-cli login</span><br></pre></td></tr></table></figure>
+<ul>
+<li>下载模型: 指定下载目录</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">huggingface-cli download openvla/openvla-7b --local-dir ./models/openvla</span><br></pre></td></tr></table></figure>
+<h1>4. 存储管理：Cache（缓存）机制</h1>
+<ul>
+<li>Hugging Face 默认会将所有下载的内容存在：<code>~/.cache/huggingface/hub</code>
+<ul>
+<li>注意：在 WSL 2 中，这个路径通常在 C 盘。如果你的 C 盘空间不足，必须修改环境变量</li>
+</ul>
+</li>
+<li>操作：在你的 <code>.bashrc</code> 或 <code>.zshrc</code> 中添加：<code>export HF_HOME=&quot;/mnt/d/huggingface_cache&quot;</code></li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/categories/">Writing</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">1. Hugging Face 的三大板块</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">2. 核心库：Transformers</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#A-%E7%BB%9F%E4%B8%80%E7%9A%84-API-%E9%80%BB%E8%BE%91"><span class="toc-number">2.1.</span> <span class="toc-text">A. 统一的 API 逻辑</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#B-%E5%85%B3%E9%94%AE%E7%BB%84%E4%BB%B6%EF%BC%9ATokenizer-Processor"><span class="toc-number">2.2.</span> <span class="toc-text">B. 关键组件：Tokenizer &amp; Processor</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">3. 命令行工具：huggingface-cli</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">4. 存储管理：Cache（缓存）机制</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://yancoranv.github.io/2026/04/14/Coding/HuggingFace/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://yancoranv.github.io/2026/04/14/Coding/HuggingFace/&text=HuggingFace"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://yancoranv.github.io/2026/04/14/Coding/HuggingFace/&title=HuggingFace"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://yancoranv.github.io/2026/04/14/Coding/HuggingFace/&is_video=false&description=HuggingFace"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=HuggingFace&body=Check out this article: https://yancoranv.github.io/2026/04/14/Coding/HuggingFace/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://yancoranv.github.io/2026/04/14/Coding/HuggingFace/&title=HuggingFace"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://yancoranv.github.io/2026/04/14/Coding/HuggingFace/&title=HuggingFace"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://yancoranv.github.io/2026/04/14/Coding/HuggingFace/&title=HuggingFace"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://yancoranv.github.io/2026/04/14/Coding/HuggingFace/&title=HuggingFace"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://yancoranv.github.io/2026/04/14/Coding/HuggingFace/&name=HuggingFace&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://yancoranv.github.io/2026/04/14/Coding/HuggingFace/&t=HuggingFace"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2026
+    Yan Zhanxi
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Writing</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

@@ -1201,21 +1201,6 @@ article .content video {
   height: auto;
   border-radius: 4px;
 }
-article .content .video-container {
-  position: relative;
-  overflow: hidden;
-  padding-top: 56.25%;
-  height: 0;
-}
-article .content .video-container iframe,
-article .content .video-container object,
-article .content .video-container embed {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
 article .content blockquote {
   margin: 1.5rem 10px;
   padding: 0.6em 1.2em;
@@ -1247,12 +1232,84 @@ article .content code {
   border: 1px solid #bbaea0;
 }
 article .content figure.highlight {
+  position: relative;
   background-color: #f7f5f0;
   border: 1px solid #e8e2d9;
-  border-radius: 4px;
+  border-radius: 8px;
   margin: 1.5em 0;
-  padding: 0.5em 0;
+  padding-top: 2.6em;
+  padding-bottom: 0.8em;
   overflow-x: auto;
+}
+article .content figure.highlight:after {
+  content: "";
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #e2a5a0;
+  box-shadow: 16px 0 #dfc184, 32px 0 #a9baa4;
+}
+article .content figure.highlight:before {
+  content: "CODE";
+  position: absolute;
+  top: 11px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.75em;
+  font-family: "Consolas", "Menlo", "方正屏显雅宋简体", monospace;
+  color: #b8a892;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+article .content figure.highlight.python:before {
+  content: "PYTHON";
+}
+article .content figure.highlight.cpp:before {
+  content: "C++";
+}
+article .content figure.highlight.c:before {
+  content: "C";
+}
+article .content figure.highlight.bash:before {
+  content: "BASH";
+}
+article .content figure.highlight.yaml:before,
+article .content figure.highlight.yml:before {
+  content: "YAML";
+}
+article .content figure.highlight.json:before {
+  content: "JSON";
+}
+article .content figure.highlight.latex:before,
+article .content figure.highlight.tex:before {
+  content: "LATEX";
+}
+article .content figure.highlight.markdown:before,
+article .content figure.highlight.md:before {
+  content: "MD";
+}
+article .content figure.highlight .copy-btn,
+article .content figure.highlight .btn-copy,
+article .content figure.highlight .copy-button,
+article .content figure.highlight .clipboard-btn {
+  top: 8px !important;
+  right: 12px !important;
+  color: #b8a892 !important;
+  background: transparent !important;
+  border: none !important;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+article .content figure.highlight .copy-btn:hover,
+article .content figure.highlight .btn-copy:hover,
+article .content figure.highlight .copy-button:hover,
+article .content figure.highlight .clipboard-btn:hover {
+  opacity: 1;
+  background: transparent !important;
 }
 article .content figure.highlight table {
   border: none !important;

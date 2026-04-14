@@ -6,15 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="Everything about Yan">
+    <meta name="description" content="基本操作 Clone &amp; Fork 这两者都涉及“获取代码”，但目的完全不同    操作 物理本质 逻辑归属 适用场景     Fork 在 GitHub 云端 复制一份他人的仓库到你自己的名下。 代码现在属于你的账号，你可以随意修改且不影响原作。 给开源项目提修改建议，或基于他人模型二次开发。   Clone 将远程仓库（Remote）下载到本地电脑。 代码依然属于原作者 自己的项目，或">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Github">
 <meta property="og:url" content="https://yancoranv.github.io/2026/04/14/Coding/Github/index.html">
 <meta property="og:site_name" content="Hi. Yan here.">
-<meta property="og:description" content="Everything about Yan">
+<meta property="og:description" content="基本操作 Clone &amp; Fork 这两者都涉及“获取代码”，但目的完全不同    操作 物理本质 逻辑归属 适用场景     Fork 在 GitHub 云端 复制一份他人的仓库到你自己的名下。 代码现在属于你的账号，你可以随意修改且不影响原作。 给开源项目提修改建议，或基于他人模型二次开发。   Clone 将远程仓库（Remote）下载到本地电脑。 代码依然属于原作者 自己的项目，或">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2026-04-14T10:42:09.641Z">
-<meta property="article:modified_time" content="2026-04-14T10:42:09.641Z">
+<meta property="article:modified_time" content="2026-04-14T13:26:00.760Z">
 <meta property="article:author" content="Yan Zhanxi">
 <meta name="twitter:card" content="summary">
     
@@ -122,6 +122,10 @@
     </div>
     
     
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">基本操作 Clone &amp; Fork</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">任务管理：Issue</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Basics"><span class="toc-number">2.1.</span> <span class="toc-text">Basics</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%81%94%E5%8A%A8-Linking"><span class="toc-number">2.2.</span> <span class="toc-text">联动 (Linking)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">2.2.1.</span> <span class="toc-text">#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E5%8F%8A%E4%B8%8E%E5%BC%95%E7%94%A8-mentions"><span class="toc-number">2.2.2.</span> <span class="toc-text">提及与引用 (@mentions)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">2.2.3.</span> <span class="toc-text">使用场景</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80%EF%BC%9A%E7%A7%91%E7%A0%94%E7%AC%94%E8%AE%B0%E4%B8%8E%E4%BB%BB%E5%8A%A1%E8%BF%BD%E8%B8%AA"><span class="toc-number">2.2.3.1.</span> <span class="toc-text">一：科研笔记与任务追踪</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%BA%E6%99%AF%E4%BA%8C%EF%BC%9A%E5%8D%9A%E5%AE%A2%E7%81%B5%E6%84%9F%E5%BA%93"><span class="toc-number">2.2.3.2.</span> <span class="toc-text">场景二：博客灵感库</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Issue-%E6%A8%A1%E6%9D%BF-Issue-Templates"><span class="toc-number">2.3.</span> <span class="toc-text">Issue 模板 (Issue Templates)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Workflow"><span class="toc-number">2.4.</span> <span class="toc-text">Workflow</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">协作：Pull Request (PR)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">自动化：GitHub Actions</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">5.</span> <span class="toc-text">GitHub 协作全流程</span></a></li></ol>
+      </div>
+    
   </span>
 </div>
 
@@ -164,7 +168,125 @@
   
 
   <div class="content e-content" itemprop="articleBody">
-    
+    <h1>基本操作 Clone &amp; Fork</h1>
+<p>这两者都涉及“获取代码”，但目的完全不同</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>物理本质</th>
+<th>逻辑归属</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fork</td>
+<td>在 GitHub 云端 复制一份他人的仓库到你自己的名下。</td>
+<td>代码现在属于你的账号，你可以随意修改且不影响原作。</td>
+<td>给开源项目提修改建议，或基于他人模型二次开发。</td>
+</tr>
+<tr>
+<td>Clone</td>
+<td>将远程仓库（Remote）下载到本地电脑。</td>
+<td>代码依然属于原作者</td>
+<td>自己的项目，或者已被加入协作者名单的项目。</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>你在 GitHub 网页点 Fork</li>
+<li>你 <code>git clone</code> 你自己 Fork 出来的仓库到本地</li>
+<li>修改后 <code>git push</code> 回你自己的仓库</li>
+<li>发起 Pull Request (PR) 请求原作者合并</li>
+</ol>
+<h1>任务管理：Issue</h1>
+<p>Issue 可以是反馈 Bug 的地方，也可以是一个项目看板</p>
+<ul>
+<li>用法：记录待办事项 (TODO)、功能需求 (Feature Request) 或学术讨论</li>
+<li>关联性：每个 Issue 都有一个编号（如 <code>#12</code>）。在 Commit message 里写 <code>fix: resolve issue #12</code>，GitHub 会自动建立链接</li>
+<li>Label：利用标签（如 <code>bug</code>、<code>enhancement</code>、<code>help wanted</code>）来分类任务。对于科研项目，可以设置 <code>experiment</code> 或 <code>data-collection</code> 标签</li>
+</ul>
+<h2 id="Basics">Basics</h2>
+<ul>
+<li>标题 (Title)：简洁明了的任务说明</li>
+<li>正文 (Description)：支持 Markdown 语法</li>
+<li>指派人 (Assignees)：这任务归谁干，在实验室项目里，学可能会把一个任务“指派”给你</li>
+<li>标签 (Labels)：给任务分类。常见的有 <code>bug</code>（程序错误）、<code>enhancement</code>（功能增强）、<code>help wanted</code>（求助）</li>
+<li>里程碑 (Milestones)：关联到一个具体的时间点。可以把所有相关 Issue 都挂在这个里程碑下</li>
+</ul>
+<h2 id="联动-Linking">联动 (Linking)</h2>
+<h3 id=""><code>#</code></h3>
+<p>GitHub 为每个 Issue 分配了一个唯一的编号（如 <code>#1</code>）</p>
+<ul>
+<li>在讨论中提到 <code>#1</code>，它会自动变成一个超链接</li>
+<li>在 Commit 信息里写 <code>refactor: improve smpl rendering, fixes #1</code></li>
+<li>当你把代码合并到主分支时，GitHub 会检测到 <code>fixes #1</code> 关键字，并自动帮你关掉（Close）那个 Issue</li>
+</ul>
+<h3 id="提及与引用-mentions">提及与引用 (@mentions)</h3>
+<p>就像微信里的 @ 一样，你在 Issue 里 @某个账号，他就会收到通知。所有的讨论都留在了代码仓库里，方便日后回溯</p>
+<h3 id="使用场景">使用场景</h3>
+<h4 id="一：科研笔记与任务追踪">一：科研笔记与任务追踪</h4>
+<p>例如在你的 <code>Research</code> 仓库开一个 Issue：</p>
+<ul>
+<li>标题：<code>[Feature] 实现 SMPL-X 模型的批量渲染脚本</code></li>
+<li>正文：列出任务清单（Task List）：
+<ul>
+<li>[x] 配置环境</li>
+<li>[ ] 编写核心循环</li>
+<li>[ ] 导出为 .mp4</li>
+</ul>
+</li>
+<li>作用：学长看到后，不需要问你进度，看一眼 Issue 里的勾选情况就知道了</li>
+</ul>
+<h4 id="场景二：博客灵感库">场景二：博客灵感库</h4>
+<p>在你的 <code>Blog_Source</code> 仓库里开 Issue：</p>
+<ul>
+<li>标题：<code>[Idea] 写一篇关于 UIUC 交换申请的心得</code></li>
+<li>正文：随便写点大纲或想到的关键词</li>
+<li>作用：这相当于一个云端待办清单，而且支持版本回溯</li>
+</ul>
+<h2 id="Issue-模板-Issue-Templates">Issue 模板 (Issue Templates)</h2>
+<p>如果点击 “New Issue” 后会弹出几个选项。这就是模板。它强迫你按照固定的格式填信息（比如：你用的 Python 版本、报错截图、复现步骤）。这能极大提高沟通效率</p>
+<h2 id="Workflow">Workflow</h2>
+<ol>
+<li>Open：发现问题或产生新想法，创建一个 Issue</li>
+<li>Discuss：在下方留言、上传截图、@相关人员讨论方案</li>
+<li>Link：创建一个分支去解决它，并在提交代码时引用该 Issue 编号</li>
+<li>Close：问题解决了，手动或通过代码合并自动关闭</li>
+</ol>
+<h1>协作：Pull Request (PR)</h1>
+<p>PR 是“请求对方拉取你的代码”</p>
+<ul>
+<li>Code Review (代码评审)：在 PR 界面，队友可以在你改动的那一行代码下直接留言讨论</li>
+<li>Draft PR：如果你还没写完，但想让导师看看思路，可以创建一个 Draft PR，它不会被意外合并</li>
+<li>Merge 策略：
+<ul>
+<li><em>Create a merge commit</em>：保留所有琐碎的提交历史</li>
+<li><em>Squash and merge</em>：把你的 10 个琐碎提交压缩成 1 个，保持主线整洁</li>
+</ul>
+</li>
+</ul>
+<h1>自动化：GitHub Actions</h1>
+<p>这是 GitHub 自带的虚拟机（Runner），可以根据触发条件（如 <code>push</code>）自动跑代码</p>
+<ul>
+<li>Workflow (.yml)：存放在 <code>.github/workflows/</code> 目录下</li>
+<li>应用例子：博客自动化，配置了 Actions，你可以直接在 Obsidian 里写完并推送到 GitHub，GitHub 的服务器会自动帮你运行 <code>hexo g -d</code>，不需要占用你本地电脑的资源</li>
+<li>科研应用：每次推送代码时自动运行 <code>pytest</code> 测试你的 SMPL 渲染逻辑是否被改坏了</li>
+</ul>
+<h1>GitHub 协作全流程</h1>
+<p>假设你要为一个开源的机器人控制库贡献代码：</p>
+<ol>
+<li>Fork 对方的仓库到你的账号</li>
+<li>Clone 你的仓库到本地</li>
+<li>Checkout 建立一个新的分支（如 <code>feat-fix-ik</code>）</li>
+<li>Commit 你的修改</li>
+<li>Push 到你自己的远程分支</li>
+<li>在 GitHub 网页点击 Compare &amp; pull request</li>
+<li>原作者 Review 你的代码并提出修改意见</li>
+<li>原作者点击 Merge，你的代码正式进入了原作的 <code>main</code> 分支</li>
+</ol>
+
   </div>
 </article>
 
@@ -188,6 +310,10 @@
 
     
     
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">基本操作 Clone &amp; Fork</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">任务管理：Issue</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Basics"><span class="toc-number">2.1.</span> <span class="toc-text">Basics</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%81%94%E5%8A%A8-Linking"><span class="toc-number">2.2.</span> <span class="toc-text">联动 (Linking)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">2.2.1.</span> <span class="toc-text">#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E5%8F%8A%E4%B8%8E%E5%BC%95%E7%94%A8-mentions"><span class="toc-number">2.2.2.</span> <span class="toc-text">提及与引用 (@mentions)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">2.2.3.</span> <span class="toc-text">使用场景</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80%EF%BC%9A%E7%A7%91%E7%A0%94%E7%AC%94%E8%AE%B0%E4%B8%8E%E4%BB%BB%E5%8A%A1%E8%BF%BD%E8%B8%AA"><span class="toc-number">2.2.3.1.</span> <span class="toc-text">一：科研笔记与任务追踪</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%BA%E6%99%AF%E4%BA%8C%EF%BC%9A%E5%8D%9A%E5%AE%A2%E7%81%B5%E6%84%9F%E5%BA%93"><span class="toc-number">2.2.3.2.</span> <span class="toc-text">场景二：博客灵感库</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Issue-%E6%A8%A1%E6%9D%BF-Issue-Templates"><span class="toc-number">2.3.</span> <span class="toc-text">Issue 模板 (Issue Templates)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Workflow"><span class="toc-number">2.4.</span> <span class="toc-text">Workflow</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">协作：Pull Request (PR)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">自动化：GitHub Actions</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">5.</span> <span class="toc-text">GitHub 协作全流程</span></a></li></ol>
+      </div>
+    
 
     <div id="share-footer" style="display: none">
       <ul>
@@ -208,6 +334,8 @@
 
     <div id="actions-footer">
         <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
         
         <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
         <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>

@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="什么是 .pkl (Pickle) 格式？ Pickle 是 Python 自带的一个序列化模块。所谓“序列化”，就是把内存里的 Python 对象（比如列表、字典、甚至你自己写的类实例）转化成一串二进制字节流，保存到硬盘上  能存什么：几乎所有的 Python 对象。包括：  简单的：列表、字典、字符串 复杂的：训练好的机器学习模型（如 Scikit-learn 模型）、自定义的类、嵌套非常深的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pkl &amp; npz &amp; yaml &amp; yml">
+<meta property="og:url" content="https://yancoranv.github.io/2026/04/14/Coding/pkl%20&%20npz%20&%20yaml%20&%20yml/index.html">
+<meta property="og:site_name" content="Hi. Yan here.">
+<meta property="og:description" content="什么是 .pkl (Pickle) 格式？ Pickle 是 Python 自带的一个序列化模块。所谓“序列化”，就是把内存里的 Python 对象（比如列表、字典、甚至你自己写的类实例）转化成一串二进制字节流，保存到硬盘上  能存什么：几乎所有的 Python 对象。包括：  简单的：列表、字典、字符串 复杂的：训练好的机器学习模型（如 Scikit-learn 模型）、自定义的类、嵌套非常深的">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2026-04-14T13:26:00.769Z">
+<meta property="article:modified_time" content="2026-04-14T13:26:00.769Z">
+<meta property="article:author" content="Yan Zhanxi">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>pkl &amp; npz &amp; yaml &amp; yml</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Writing</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2026/04/14/Coding/Math%20Concepts%20in%20Coding/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2026/04/14/Coding/HuggingFace/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://yancoranv.github.io/2026/04/14/Coding/pkl%20&amp;%20npz%20&amp;%20yaml%20&amp;%20yml/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://yancoranv.github.io/2026/04/14/Coding/pkl%20&amp;%20npz%20&amp;%20yaml%20&amp;%20yml/&text=pkl &amp; npz &amp; yaml &amp; yml"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://yancoranv.github.io/2026/04/14/Coding/pkl%20&amp;%20npz%20&amp;%20yaml%20&amp;%20yml/&title=pkl &amp; npz &amp; yaml &amp; yml"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://yancoranv.github.io/2026/04/14/Coding/pkl%20&amp;%20npz%20&amp;%20yaml%20&amp;%20yml/&is_video=false&description=pkl &amp; npz &amp; yaml &amp; yml"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=pkl &amp; npz &amp; yaml &amp; yml&body=Check out this article: https://yancoranv.github.io/2026/04/14/Coding/pkl%20&amp;%20npz%20&amp;%20yaml%20&amp;%20yml/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://yancoranv.github.io/2026/04/14/Coding/pkl%20&amp;%20npz%20&amp;%20yaml%20&amp;%20yml/&title=pkl &amp; npz &amp; yaml &amp; yml"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://yancoranv.github.io/2026/04/14/Coding/pkl%20&amp;%20npz%20&amp;%20yaml%20&amp;%20yml/&title=pkl &amp; npz &amp; yaml &amp; yml"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://yancoranv.github.io/2026/04/14/Coding/pkl%20&amp;%20npz%20&amp;%20yaml%20&amp;%20yml/&title=pkl &amp; npz &amp; yaml &amp; yml"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://yancoranv.github.io/2026/04/14/Coding/pkl%20&amp;%20npz%20&amp;%20yaml%20&amp;%20yml/&title=pkl &amp; npz &amp; yaml &amp; yml"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://yancoranv.github.io/2026/04/14/Coding/pkl%20&amp;%20npz%20&amp;%20yaml%20&amp;%20yml/&name=pkl &amp; npz &amp; yaml &amp; yml&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://yancoranv.github.io/2026/04/14/Coding/pkl%20&amp;%20npz%20&amp;%20yaml%20&amp;%20yml/&t=pkl &amp; npz &amp; yaml &amp; yml"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">什么是 .pkl (Pickle) 格式？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">什么是 .npz (NumPy Zip) 格式？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">对比</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">什么是 YAML &#x2F; YML？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">5.</span> <span class="toc-text">YAML 和 NPZ&amp;PKL</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#A-%E8%81%8C%E8%B4%A3%E5%88%86%E5%B7%A5"><span class="toc-number">5.1.</span> <span class="toc-text">A. 职责分工</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#B-%E5%8D%8F%E4%BD%9C%E5%9C%BA%E6%99%AF%E7%A4%BA%E4%BE%8B%EF%BC%9AVLA-%E8%AE%AD%E7%BB%83%E9%85%8D%E7%BD%AE"><span class="toc-number">5.2.</span> <span class="toc-text">B. 协作场景示例：VLA 训练配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%EF%BC%9A%E5%A6%82%E4%BD%95%E5%B0%86%E5%AE%83%E4%BB%AC%E7%BB%93%E5%90%88"><span class="toc-number">5.3.</span> <span class="toc-text">代码：如何将它们结合</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        pkl &amp; npz &amp; yaml &amp; yml
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Yan Zhanxi</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2026-04-14T13:26:00.769Z" class="dt-published" itemprop="datePublished">2026-04-14</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/Coding/">Coding</a>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h1>什么是 .pkl (Pickle) 格式？</h1>
+<p>Pickle 是 Python 自带的一个序列化模块。所谓“序列化”，就是把内存里的 Python 对象（比如列表、字典、甚至你自己写的类实例）转化成一串二进制字节流，保存到硬盘上</p>
+<ul>
+<li>能存什么：几乎所有的 Python 对象。包括：
+<ul>
+<li>简单的：列表、字典、字符串</li>
+<li>复杂的：训练好的机器学习模型（如 Scikit-learn 模型）、自定义的类、嵌套非常深的数据结构</li>
+</ul>
+</li>
+<li>优点：
+<ul>
+<li>极其通用：只要是 Python 对象，通常都能保存</li>
+<li>保持结构：读回来的时候，原来的字典还是字典，类还是类</li>
+</ul>
+</li>
+<li>缺点：
+<ul>
+<li>安全性差：加载不明来源的 .pkl 文件可能会执行恶意代码</li>
+<li>跨语言难：它是 Python 专用的，很难在 C++ 或 Java 中直接读取</li>
+<li>性能一般：对于海量纯数值数据，读写速度不如专门的格式</li>
+</ul>
+</li>
+</ul>
+<p>代码示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"></span><br><span class="line">data = &#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;Alice&#x27;</span>, <span class="string">&#x27;scores&#x27;</span>: [<span class="number">95</span>, <span class="number">88</span>, <span class="number">100</span>]&#125;</span><br><span class="line"><span class="comment"># 保存</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;data.pkl&#x27;</span>, <span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    pickle.dump(data, f)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加载</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;data.pkl&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    loaded_data = pickle.load(f)</span><br></pre></td></tr></table></figure>
+<h1>什么是 .npz (NumPy Zip) 格式？</h1>
+<p>.npz 是 NumPy 库特有的压缩格式。它其实是一个 ZIP 压缩包，里面打包了多个 .npy 文件（每个 .npy 文件代表一个独立的 NumPy 数组）</p>
+<ul>
+<li>能存什么：专门存储 NumPy 数组（ndarrays）</li>
+<li>优点：
+<ul>
+<li>高效且省空间：专门为数字矩阵优化，读取速度极快，且支持压缩（savez_compressed）</li>
+<li>支持“延迟加载” (Lazy Loading)：当你打开一个 10GB 的 .npz 时，它不会立刻把所有数组塞进内存，而是等到你真正访问某个数组（如 data[‘arr1’]）时才读取</li>
+<li>适合大数据集：常用于存储深度学习的权重、训练集的特征向量等</li>
+</ul>
+</li>
+<li>缺点：
+<ul>
+<li>单一性：虽然也能强行存一些简单对象，但它主要是为数组设计的，不适合存复杂的自定义类</li>
+</ul>
+</li>
+</ul>
+<p>代码示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">arr1 = np.array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</span><br><span class="line">arr2 = np.array([[<span class="number">4</span>, <span class="number">5</span>], [<span class="number">6</span>, <span class="number">7</span>]])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 保存（可以给数组起名）</span></span><br><span class="line">np.savez(<span class="string">&#x27;arrays.npz&#x27;</span>, x=arr1, y=arr2)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加载</span></span><br><span class="line">data = np.load(<span class="string">&#x27;arrays.npz&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(data[<span class="string">&#x27;x&#x27;</span>]) <span class="comment"># 访问指定的数组</span></span><br></pre></td></tr></table></figure>
+<h1>对比</h1>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>.pkl (Pickle)</th>
+<th>.npz (NumPy)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>主要用途</td>
+<td>保存复杂对象、训练好的模型</td>
+<td>保存大量的数字矩阵、多维数组</td>
+</tr>
+<tr>
+<td>支持类型</td>
+<td>几乎所有 Python 类型</td>
+<td>主要是 NumPy 数组</td>
+</tr>
+<tr>
+<td>读取速度</td>
+<td>较慢（对数值数据）</td>
+<td>极快（对数值数据）</td>
+</tr>
+<tr>
+<td>安全性</td>
+<td>存在安全风险（不建议加载未知文件）</td>
+<td>相对安全</td>
+</tr>
+<tr>
+<td>存储方式</td>
+<td>单一二进制流</td>
+<td>多个数组的压缩包（ZIP）</td>
+</tr>
+<tr>
+<td>典型场景</td>
+<td>保存 RandomForest 模型、配置字典</td>
+<td>保存 深度学习权重、图像像素矩阵</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>处理纯数字、矩阵、张量（比如特征、图像数据、权重），选 .npz 或 .npy</li>
+<li>需要把整个模型、复杂的配置、或者是各种乱七八糟的对象存成一个文件，选择 .pkl</li>
+<li>在深度学习中（如 PyTorch），模型文件通常也是基于 pickle 的变体（如 .pth 或 .pt），但内部针对张量存储做了特殊优化</li>
+</ul>
+<h1>什么是 YAML / YML？</h1>
+<p>YAML (YAML Ain’t Markup Language) 是一种专门设计用来方便人类读取的数据序列化格式</p>
+<ul>
+<li>YAML vs. YML：两者完全相同，只是后缀名不同。<code>.yml</code> 是为了兼容老旧系统的三位后缀习惯，现在两者通用</li>
+<li>核心特点：
+<ul>
+<li>极高可读性：使用缩进表示层级，没有繁琐的括号或分号</li>
+<li>强类型支持：自动识别数字、布尔值、字符串和列表</li>
+<li>用途：主要用于配置文件（如你的 Hexo <code>_config.yml</code>）、超参数记录和数据集描述</li>
+</ul>
+</li>
+</ul>
+<h1>YAML 和 NPZ&amp;PKL</h1>
+<h2 id="A-职责分工">A. 职责分工</h2>
+<ul>
+<li>YAML (元数据层)：存储“轻量级”信息。比如模型结构说明、训练时的学习率、数据集的路径、类别名称等</li>
+<li>NPZ (数值层)：存储“重型”矩阵数据（如图像张量、机器人轨迹点）</li>
+<li>PKL (对象层)：存储“复杂”的 Python 对象（如训练好的模型实例、复杂的嵌套字典）</li>
+</ul>
+<h2 id="B-协作场景示例：VLA-训练配置">B. 协作场景示例：VLA 训练配置</h2>
+<p>假设你有一个机器人动作数据集，你的文件夹里通常会这样组织：</p>
+<ol>
+<li><code>config.yaml</code>：记录实验编号、使用的显卡 ID、<code>.npz</code> 文件的路径清单</li>
+<li><code>trajectories.npz</code>：存储数百万个浮点数组成的机器人抓取坐标</li>
+<li><code>model_info.pkl</code>：存储一个自定义的类，记录了模型训练的中间状态或特定的归一化参数</li>
+</ol>
+<h2 id="代码：如何将它们结合">代码：如何将它们结合</h2>
+<p>在 Python 中，我们通常使用 <code>PyYAML</code> 库来读取配置，然后根据配置去加载对应的数值文件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> yaml</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 读取 YAML 配置文件</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;experiment_config.yaml&#x27;</span>, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    config = yaml.safe_load(f)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;正在进行实验: <span class="subst">&#123;config[<span class="string">&#x27;experiment_name&#x27;</span>]&#125;</span>&quot;</span>)</span><br><span class="line">learning_rate = config[<span class="string">&#x27;training&#x27;</span>][<span class="string">&#x27;lr&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 根据 YAML 中的路径加载 NPZ 数据</span></span><br><span class="line">data_path = config[<span class="string">&#x27;data_paths&#x27;</span>][<span class="string">&#x27;trajectory_file&#x27;</span>]</span><br><span class="line">arrays = np.load(data_path) <span class="comment"># 加载 npz 文件</span></span><br><span class="line">arm_coords = arrays[<span class="string">&#x27;coords&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 加载 PKL 中的复杂模型对象</span></span><br><span class="line">model_path = config[<span class="string">&#x27;data_paths&#x27;</span>][<span class="string">&#x27;model_file&#x27;</span>]</span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(model_path, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    model_state = pickle.load(f) <span class="comment"># 加载 pkl 文件</span></span><br></pre></td></tr></table></figure>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/categories/">Writing</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">什么是 .pkl (Pickle) 格式？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">什么是 .npz (NumPy Zip) 格式？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">对比</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">什么是 YAML &#x2F; YML？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">5.</span> <span class="toc-text">YAML 和 NPZ&amp;PKL</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#A-%E8%81%8C%E8%B4%A3%E5%88%86%E5%B7%A5"><span class="toc-number">5.1.</span> <span class="toc-text">A. 职责分工</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#B-%E5%8D%8F%E4%BD%9C%E5%9C%BA%E6%99%AF%E7%A4%BA%E4%BE%8B%EF%BC%9AVLA-%E8%AE%AD%E7%BB%83%E9%85%8D%E7%BD%AE"><span class="toc-number">5.2.</span> <span class="toc-text">B. 协作场景示例：VLA 训练配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%EF%BC%9A%E5%A6%82%E4%BD%95%E5%B0%86%E5%AE%83%E4%BB%AC%E7%BB%93%E5%90%88"><span class="toc-number">5.3.</span> <span class="toc-text">代码：如何将它们结合</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://yancoranv.github.io/2026/04/14/Coding/pkl%20&amp;%20npz%20&amp;%20yaml%20&amp;%20yml/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://yancoranv.github.io/2026/04/14/Coding/pkl%20&amp;%20npz%20&amp;%20yaml%20&amp;%20yml/&text=pkl &amp; npz &amp; yaml &amp; yml"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://yancoranv.github.io/2026/04/14/Coding/pkl%20&amp;%20npz%20&amp;%20yaml%20&amp;%20yml/&title=pkl &amp; npz &amp; yaml &amp; yml"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://yancoranv.github.io/2026/04/14/Coding/pkl%20&amp;%20npz%20&amp;%20yaml%20&amp;%20yml/&is_video=false&description=pkl &amp; npz &amp; yaml &amp; yml"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=pkl &amp; npz &amp; yaml &amp; yml&body=Check out this article: https://yancoranv.github.io/2026/04/14/Coding/pkl%20&amp;%20npz%20&amp;%20yaml%20&amp;%20yml/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://yancoranv.github.io/2026/04/14/Coding/pkl%20&amp;%20npz%20&amp;%20yaml%20&amp;%20yml/&title=pkl &amp; npz &amp; yaml &amp; yml"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://yancoranv.github.io/2026/04/14/Coding/pkl%20&amp;%20npz%20&amp;%20yaml%20&amp;%20yml/&title=pkl &amp; npz &amp; yaml &amp; yml"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://yancoranv.github.io/2026/04/14/Coding/pkl%20&amp;%20npz%20&amp;%20yaml%20&amp;%20yml/&title=pkl &amp; npz &amp; yaml &amp; yml"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://yancoranv.github.io/2026/04/14/Coding/pkl%20&amp;%20npz%20&amp;%20yaml%20&amp;%20yml/&title=pkl &amp; npz &amp; yaml &amp; yml"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://yancoranv.github.io/2026/04/14/Coding/pkl%20&amp;%20npz%20&amp;%20yaml%20&amp;%20yml/&name=pkl &amp; npz &amp; yaml &amp; yml&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://yancoranv.github.io/2026/04/14/Coding/pkl%20&amp;%20npz%20&amp;%20yaml%20&amp;%20yml/&t=pkl &amp; npz &amp; yaml &amp; yml"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2026
+    Yan Zhanxi
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Writing</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

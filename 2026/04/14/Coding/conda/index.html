@@ -6,15 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="对于需要处理 SMPL 模型、PyTorch 渲染、CUDA 加速的研究项目，Conda 是事实上的标准 1. Conda 与 .venv 的本质区别    特性 .venv Conda     隔离层级 仅限 Python 库 Python 版本 + 库 + 二进制依赖 (C++&#x2F;CUDA)   存储方式 项目内路径 (如 Blog&#x2F;.venv) 集中管理 (如 ~&#x2F;miniconda3&#x2F;env">
+    <meta name="description" content="1. 什么是 Conda？ Conda 是一个开源的包管理系统和环境管理系统  包管理：类似于 pip 或 npm，负责安装库 环境管理：类似于 .venv，但权限更高。它不仅能隔离 Python 库，还能隔离 Python 解释器本身 以及 系统级依赖（如 CUDA, C++ 编译器）  Anaconda &amp; Miniconda  Anaconda：安装包很大（数 GB），自带了可能永远">
 <meta property="og:type" content="article">
-<meta property="og:title" content="conda">
+<meta property="og:title" content="Conda">
 <meta property="og:url" content="https://yancoranv.github.io/2026/04/14/Coding/conda/index.html">
 <meta property="og:site_name" content="Hi. Yan here.">
-<meta property="og:description" content="对于需要处理 SMPL 模型、PyTorch 渲染、CUDA 加速的研究项目，Conda 是事实上的标准 1. Conda 与 .venv 的本质区别    特性 .venv Conda     隔离层级 仅限 Python 库 Python 版本 + 库 + 二进制依赖 (C++&#x2F;CUDA)   存储方式 项目内路径 (如 Blog&#x2F;.venv) 集中管理 (如 ~&#x2F;miniconda3&#x2F;env">
+<meta property="og:description" content="1. 什么是 Conda？ Conda 是一个开源的包管理系统和环境管理系统  包管理：类似于 pip 或 npm，负责安装库 环境管理：类似于 .venv，但权限更高。它不仅能隔离 Python 库，还能隔离 Python 解释器本身 以及 系统级依赖（如 CUDA, C++ 编译器）  Anaconda &amp; Miniconda  Anaconda：安装包很大（数 GB），自带了可能永远">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2026-04-14T10:42:09.635Z">
-<meta property="article:modified_time" content="2026-04-14T10:42:09.636Z">
+<meta property="article:modified_time" content="2026-04-14T13:26:00.752Z">
 <meta property="article:author" content="Yan Zhanxi">
 <meta name="twitter:card" content="summary">
     
@@ -36,7 +36,7 @@
       
     
     <!-- title -->
-    <title>conda</title>
+    <title>Conda</title>
     <!-- async scripts -->
     <!-- Google Analytics -->
 
@@ -107,23 +107,23 @@
     <div id="share" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://yancoranv.github.io/2026/04/14/Coding/conda/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&text=conda"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&title=conda"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&is_video=false&description=conda"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=conda&body=Check out this article: https://yancoranv.github.io/2026/04/14/Coding/conda/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&title=conda"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&title=conda"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&title=conda"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&title=conda"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&name=conda&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://yancoranv.github.io/2026/04/14/Coding/conda/&t=conda"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&text=Conda"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&title=Conda"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&is_video=false&description=Conda"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Conda&body=Check out this article: https://yancoranv.github.io/2026/04/14/Coding/conda/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&title=Conda"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&title=Conda"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&title=Conda"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&title=Conda"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&name=Conda&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://yancoranv.github.io/2026/04/14/Coding/conda/&t=Conda"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Conda-%E4%B8%8E-venv-%E7%9A%84%E6%9C%AC%E8%B4%A8%E5%8C%BA%E5%88%AB"><span class="toc-number">1.</span> <span class="toc-text">1. Conda 与 .venv 的本质区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%BA%E5%99%A8%E4%BA%BA%E7%A0%94%E7%A9%B6%E5%BF%85%E7%94%A8-Conda%EF%BC%9F"><span class="toc-number">2.</span> <span class="toc-text">2. 为什么机器人研究必用 Conda？</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">1. 什么是 Conda？</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Anaconda-Miniconda"><span class="toc-number">1.1.</span> <span class="toc-text">Anaconda &amp; Miniconda</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Conda-Vs-venv-%EF%BC%9A"><span class="toc-number">1.2.</span> <span class="toc-text">Conda  Vs. .venv ：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">Conda 使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#A-%E7%8E%AF%E5%A2%83%E5%88%9B%E5%BB%BA%E4%B8%8E%E5%88%87%E6%8D%A2"><span class="toc-number">2.1.</span> <span class="toc-text">A. 环境创建与切换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#B-%E5%AE%89%E8%A3%85%E5%8C%85"><span class="toc-number">2.2.</span> <span class="toc-text">B. 安装包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-%E6%9F%A5%E7%9C%8B%E4%B8%8E%E6%B8%85%E7%90%86"><span class="toc-number">2.3.</span> <span class="toc-text">C. 查看与清理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E7%9A%84%E5%8F%AF%E7%A7%BB%E6%A4%8D%E6%80%A7-Environment-YAML"><span class="toc-number">2.4.</span> <span class="toc-text">环境的可移植性 (Environment YAML)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">补充：pip &amp; npm</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-PyPI-pip-%E7%9A%84%E5%94%AF%E4%B8%80%E5%AE%98%E6%96%B9%E4%BB%93%E5%BA%93"><span class="toc-number">3.1.</span> <span class="toc-text">1. PyPI (pip 的唯一官方仓库)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Conda-Channels-Conda-%E7%9A%84%E2%80%9C%E9%A2%91%E9%81%93-%E4%B8%93%E6%9F%9C%E2%80%9D"><span class="toc-number">3.2.</span> <span class="toc-text">2. Conda Channels (Conda 的“频道&#x2F;专柜”)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BB%AC%E8%A6%81%E5%8C%BA%E5%88%86%E4%B8%8D%E5%90%8C%E7%9A%84%E2%80%9C%E9%A2%91%E9%81%93%E2%80%9D%EF%BC%9F"><span class="toc-number">3.3.</span> <span class="toc-text">3. 为什么我们要区分不同的“频道”？</span></a></li></ol></li></ol>
       </div>
     
   </span>
@@ -136,7 +136,7 @@
   <header>
     
     <h1 class="posttitle p-name" itemprop="name headline">
-        conda
+        Conda
     </h1>
 
 
@@ -168,8 +168,18 @@
   
 
   <div class="content e-content" itemprop="articleBody">
-    <p>对于需要处理 SMPL 模型、PyTorch 渲染、CUDA 加速的研究项目，Conda 是事实上的标准</p>
-<h3 id="1-Conda-与-venv-的本质区别">1. Conda 与 .venv 的本质区别</h3>
+    <h1>1. 什么是 Conda？</h1>
+<p>Conda 是一个开源的包管理系统和环境管理系统</p>
+<ul>
+<li>包管理：类似于 <code>pip</code> 或 <code>npm</code>，负责安装库</li>
+<li>环境管理：类似于 <code>.venv</code>，但权限更高。它不仅能隔离 Python 库，还能隔离 Python 解释器本身 以及 系统级依赖（如 CUDA, C++ 编译器）</li>
+</ul>
+<h2 id="Anaconda-Miniconda"><code>Anaconda</code> &amp; <code>Miniconda</code></h2>
+<ul>
+<li>Anaconda：安装包很大（数 GB），自带了可能永远用不到的科学计算包</li>
+<li>Miniconda：最简版本，只包含 Conda 和 Python</li>
+</ul>
+<h2 id="Conda-Vs-venv-："><code>Conda </code> Vs. <code>.venv </code>：</h2>
 <table>
 <thead>
 <tr>
@@ -180,28 +190,140 @@
 </thead>
 <tbody>
 <tr>
-<td>隔离层级</td>
+<td>隔离深度</td>
 <td>仅限 Python 库</td>
-<td>Python 版本 + 库 + 二进制依赖 (C++/CUDA)</td>
+<td>Python 版本 + 库 + 二进制依赖 (CUDA/C++)</td>
 </tr>
 <tr>
-<td>存储方式</td>
-<td>项目内路径 (如 <code>Blog/.venv</code>)</td>
-<td>集中管理 (如 <code>~/miniconda3/envs/</code>)</td>
+<td>安装位置</td>
+<td>项目文件夹内 (<code>.venv/</code>)</td>
+<td>集中存放于 <code>~/miniconda3/envs/</code></td>
 </tr>
 <tr>
 <td>包来源</td>
-<td>PyPI (<code>pip</code>)</td>
-<td>Conda Channels (<code>conda</code>, <code>conda-forge</code>)</td>
+<td>仅限 PyPI (<code>pip</code>)</td>
+<td>Conda Channels (<code>conda-forge</code>, <code>nvidia</code>, <code>pytorch</code>)</td>
+</tr>
+<tr>
+<td>跨平台性</td>
+<td>依赖系统已安装的 Python</td>
+<td>自带解释器，跨平台一致性极强</td>
 </tr>
 </tbody>
 </table>
-<h3 id="2-为什么机器人研究必用-Conda？">2. 为什么机器人研究必用 Conda？</h3>
-<p>在处理 VLA 模型或 SMPL-X 时，你经常会遇到以下需求：</p>
 <ul>
-<li>Python 版本切换：有些旧的代码库必须在 Python 3.8 运行，而新模型需要 3.12。Conda 可以轻松创建不同版本的 Python 环境</li>
-<li>CUDA 依赖：Conda 可以为每个环境安装不同版本的 <code>cudatoolkit</code>，而不需要你频繁修改系统的环境变量</li>
+<li>隔离深度：库 Vs. 系统
+<ul>
+<li>.venv：不同 <code>.venv</code> 共享同一个 Python 解释器。如果一个项目要 Python 3.8，另一个要 3.12，<code>.venv </code> 解决不了这个问题</li>
+<li>Conda：Python 版本、CUDA 驱动（跑 AI 必备）、底层 C 语言库都是按需定制的</li>
 </ul>
+</li>
+<li>安装位置：分散 Vs. 集中
+<ul>
+<li>.venv：它是“项目导向”的。每个项目下面都有一个，你一眼就能看到。好处是清理方便，删掉项目就删掉了环境</li>
+<li>Conda：它是“管理导向”的。每一个 <code>conda</code> 环境都整齐地排在系统的某个角落，你可以在任何文件夹下通过命令运行某个环境</li>
+</ul>
+</li>
+<li>包来源：源码 Vs. 二进制成品
+<ul>
+<li>pip (PyPI)：大部分时候给你的是源码，你的电脑得负责把它们组装起来。如果你的 C++ 编译器没配好，安装就会报错</li>
+<li>Conda (Channels)：很多时候给你的是“成品”（预编译二进制文件）。别人已经在服务器上帮你组装并测试好了，你直接下载下来就能跑</li>
+</ul>
+</li>
+<li>依赖系统 Vs. 自给自足
+<ul>
+<li>.venv：它是寄生在系统 Python 上的，系统 Python 坏了，它也跑不动</li>
+<li>Conda：它是自给自足的，它会下载完整的 Python 解释器放在环境里</li>
+</ul>
+</li>
+</ul>
+<h1><code>Conda</code> 使用</h1>
+<h2 id="A-环境创建与切换">A. 环境创建与切换</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建一个名为 research 的环境，并指定 Python 版本（这在 .venv 里很难做到），-n代表 --name</span></span><br><span class="line">conda create -n research python=3.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># 激活环境</span></span><br><span class="line">conda activate research</span><br><span class="line"></span><br><span class="line"><span class="comment"># 退出当前环境</span></span><br><span class="line">conda deactivate</span><br></pre></td></tr></table></figure>
+<h2 id="B-安装包">B. 安装包</h2>
+<p>Conda 会自动解决复杂的二进制依赖</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装 pytorch，并指定从 pytorch 和 nvidia 的渠道获取，自动配置 CUDA，渠道（Channel）是 Conda 寻找软件包的服务器地址。-c 是 --channel 的缩写</span></span><br><span class="line">conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果 conda 找不到某个包，依然可以用 pip（在已激活的环境内）</span></span><br><span class="line">pip install smplx</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>-c pytorch</code>： 指定从 PyTorch 官方渠道下载</li>
+<li><code>-c nvidia</code>： 指定从 NVIDIA 官方渠道下载 CUDA 相关的依赖项</li>
+</ul>
+<h2 id="C-查看与清理">C. 查看与清理</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 列出所有已创建的环境</span></span><br><span class="line">conda <span class="built_in">env</span> list</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除某个不再需要的环境</span></span><br><span class="line">conda <span class="built_in">env</span> remove -n old_project</span><br></pre></td></tr></table></figure>
+<h2 id="环境的可移植性-Environment-YAML">环境的可移植性 (Environment YAML)</h2>
+<p>要复现实验时，你不能把整个环境发过去。你需要一个“配方”</p>
+<ul>
+<li>导出配方：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda <span class="built_in">env</span> <span class="built_in">export</span> &gt; environment.yml</span><br></pre></td></tr></table></figure>
+<ul>
+<li>根据配方重建：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conda <span class="built_in">env</span> create -f environment.yml</span><br><span class="line"><span class="comment"># -f 是 --file 的缩写，用于指定一个环境定义文件（通常是 .yml 或 .yaml 格式）。Conda 会读取该文件中的配置信息，自动完成环境的创建</span></span><br></pre></td></tr></table></figure>
+<h1>补充：<code>pip</code> &amp; <code>npm</code></h1>
+<p>理解“包来源”（Package Sources）的区别，本质上是理解“这些代码是谁在维护”以及“它们被存储在哪里”</p>
+<h2 id="1-PyPI-pip-的唯一官方仓库">1. PyPI (pip 的唯一官方仓库)</h2>
+<p>PyPI (Python Package Index) 是 Python 官方唯一的“大仓库”</p>
+<ul>
+<li>逻辑：它是全球统一的。如果你写了一个 Python 库并想让全世界使用，你必须把它上传到 PyPI</li>
+<li>工作方式：当你执行 <code>pip install xxxx</code> 时，pip 会直接去 PyPI 这一个地方寻找并下载</li>
+<li>局限性：PyPI 里的包通常只包含 Python 代码。如果你的库需要调用复杂的底层 C++ 编译器，或者是特定的显卡驱动（比如做机器人仿真需要的 CUDA），PyPI 往往很难处理这些非 Python 的依赖项</li>
+</ul>
+<h2 id="2-Conda-Channels-Conda-的“频道-专柜”">2. Conda Channels (Conda 的“频道/专柜”)</h2>
+<p>Conda 的逻辑完全不同。它允许存在多个不同的独立仓库，这些仓库就叫 Channels（频道）</p>
+<p>你可以把 Conda 想象成一个巨大的商场，里面分布着不同的“专柜”：</p>
+<ul>
+<li>Defaults 频道：这是 Anaconda 公司官方维护的柜台。它的特点是包经过严格测试，非常稳定，但缺点是更新速度较慢，包的数量有限</li>
+<li>conda-forge 频道 (社区柜台)：这是科研人员最常用的频道。它是由全球开发者社区共同维护的“公共柜台”。它的特点是包最全、更新极快。如果你发现一个科研工具在默认频道找不到，去 <code>conda-forge</code> 一定有</li>
+<li>nvidia / pytorch / fastai (厂商专柜)：
+<ul>
+<li>nvidia 频道：专门提供针对显卡优化的底层驱动和工具（如 CUDA、cuDNN）</li>
+<li>pytorch 频道：由 PyTorch 官方维护，专门提供已经配置好、可以直接运行的深度学习框架</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-为什么我们要区分不同的“频道”？">3. 为什么我们要区分不同的“频道”？</h2>
+<p><code>conda install pytorch -c pytorch -c nvidia</code></p>
+<p>这里的 <code>-c</code> 就是 Channel 的缩写。这句话的逻辑是：</p>
+<blockquote>
+<p>“我要安装 pytorch，请优先去 <code>pytorch</code> 官方专柜和 <code>nvidia</code> 官方专柜找；如果这两个地方都没有，再去默认柜台找。”</p>
+</blockquote>
+<p>这样做有三个核心好处：</p>
+<ol>
+<li>版本更精准：直接从厂商（如 Nvidia）的频道下载，能确保你拿到的包是针对你的硬件（GPU）优化过的</li>
+<li>解决依赖问题：Conda 频道里的包通常是预编译好的二进制文件。在 PyPI 里，安装复杂的库可能需要在本地配置 C++ 环境，但在 Conda 频道里，别人已经帮你编译好了，下载即用</li>
+<li>优先级控制：你可以设置 Conda 优先从 <code>conda-forge</code> 找东西，这样能保证你的整个开发环境所用的库版本是最新的</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>PyPI (pip)</th>
+<th>Conda Channels</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>数量</td>
+<td>全球只有一个中心仓库</td>
+<td>拥有多个独立的频道（专柜）</td>
+</tr>
+<tr>
+<td>内容</td>
+<td>主要是 Python 源码</td>
+<td>预编译好的二进制文件（含 Python 和非 Python 依赖）</td>
+</tr>
+<tr>
+<td>维护者</td>
+<td>个人开发者直接上传</td>
+<td>社区 (conda-forge) 或 硬件厂商 (Nvidia/Pytorch)</td>
+</tr>
+<tr>
+<td>优势</td>
+<td>包的数量全球最多</td>
+<td>极其擅长处理复杂的 AI 和工程依赖</td>
+</tr>
+</tbody>
+</table>
 
   </div>
 </article>
@@ -227,23 +349,23 @@
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Conda-%E4%B8%8E-venv-%E7%9A%84%E6%9C%AC%E8%B4%A8%E5%8C%BA%E5%88%AB"><span class="toc-number">1.</span> <span class="toc-text">1. Conda 与 .venv 的本质区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%BA%E5%99%A8%E4%BA%BA%E7%A0%94%E7%A9%B6%E5%BF%85%E7%94%A8-Conda%EF%BC%9F"><span class="toc-number">2.</span> <span class="toc-text">2. 为什么机器人研究必用 Conda？</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">1. 什么是 Conda？</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Anaconda-Miniconda"><span class="toc-number">1.1.</span> <span class="toc-text">Anaconda &amp; Miniconda</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Conda-Vs-venv-%EF%BC%9A"><span class="toc-number">1.2.</span> <span class="toc-text">Conda  Vs. .venv ：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">Conda 使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#A-%E7%8E%AF%E5%A2%83%E5%88%9B%E5%BB%BA%E4%B8%8E%E5%88%87%E6%8D%A2"><span class="toc-number">2.1.</span> <span class="toc-text">A. 环境创建与切换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#B-%E5%AE%89%E8%A3%85%E5%8C%85"><span class="toc-number">2.2.</span> <span class="toc-text">B. 安装包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-%E6%9F%A5%E7%9C%8B%E4%B8%8E%E6%B8%85%E7%90%86"><span class="toc-number">2.3.</span> <span class="toc-text">C. 查看与清理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E7%9A%84%E5%8F%AF%E7%A7%BB%E6%A4%8D%E6%80%A7-Environment-YAML"><span class="toc-number">2.4.</span> <span class="toc-text">环境的可移植性 (Environment YAML)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">补充：pip &amp; npm</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-PyPI-pip-%E7%9A%84%E5%94%AF%E4%B8%80%E5%AE%98%E6%96%B9%E4%BB%93%E5%BA%93"><span class="toc-number">3.1.</span> <span class="toc-text">1. PyPI (pip 的唯一官方仓库)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Conda-Channels-Conda-%E7%9A%84%E2%80%9C%E9%A2%91%E9%81%93-%E4%B8%93%E6%9F%9C%E2%80%9D"><span class="toc-number">3.2.</span> <span class="toc-text">2. Conda Channels (Conda 的“频道&#x2F;专柜”)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BB%AC%E8%A6%81%E5%8C%BA%E5%88%86%E4%B8%8D%E5%90%8C%E7%9A%84%E2%80%9C%E9%A2%91%E9%81%93%E2%80%9D%EF%BC%9F"><span class="toc-number">3.3.</span> <span class="toc-text">3. 为什么我们要区分不同的“频道”？</span></a></li></ol></li></ol>
       </div>
     
 
     <div id="share-footer" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://yancoranv.github.io/2026/04/14/Coding/conda/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&text=conda"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&title=conda"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&is_video=false&description=conda"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=conda&body=Check out this article: https://yancoranv.github.io/2026/04/14/Coding/conda/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&title=conda"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&title=conda"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&title=conda"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&title=conda"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&name=conda&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://yancoranv.github.io/2026/04/14/Coding/conda/&t=conda"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&text=Conda"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&title=Conda"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&is_video=false&description=Conda"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Conda&body=Check out this article: https://yancoranv.github.io/2026/04/14/Coding/conda/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&title=Conda"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&title=Conda"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&title=Conda"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&title=Conda"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&name=Conda&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://yancoranv.github.io/2026/04/14/Coding/conda/&t=Conda"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
