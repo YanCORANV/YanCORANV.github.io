@@ -1162,21 +1162,36 @@ article .content h6 {
 }
 article .content table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate !important;
+  border-spacing: 0;
   margin: 1.5rem 0;
   font-size: 0.95em;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #f3efe9;
+  border: 1px solid #e0d8cc;
+  box-shadow: 0 4px 16px rgba(140,132,119,0.08);
 }
 article .content table th,
 article .content table td {
-  border: 1px solid #8c8477 !important;
-  padding: 0.7em 1.2em;
+  padding: 0.8em 1.2em;
   line-height: 1.5;
+  border-bottom: 1px solid #e8e0d5;
+  border-right: 1px solid #e8e0d5;
+  background-color: transparent;
 }
 article .content table th {
-  background-color: #e6dfd5;
   color: #544d47;
   font-weight: 700;
   text-align: left;
+  border-bottom: 1.5px solid #d5cabd !important;
+}
+article .content table tr:last-child td {
+  border-bottom: none;
+}
+article .content table td:last-child,
+article .content table th:last-child {
+  border-right: none;
 }
 article .content img,
 article .content video {
@@ -1242,12 +1257,16 @@ article .content figure.highlight {
 article .content figure.highlight table {
   border: none !important;
   margin: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
 }
 article .content figure.highlight tr,
 article .content figure.highlight td,
 article .content figure.highlight th {
   border: none !important;
   padding: 0 !important;
+  background: transparent !important;
 }
 article .content figure.highlight pre,
 article .content figure.highlight code {
@@ -1263,7 +1282,7 @@ article .content figure.highlight .gutter {
   padding-left: 1em !important;
 }
 article .content figure.highlight .gutter pre {
-  color: #b8a892;
+  color: #8c8477;
   text-align: right;
   font-family: "Consolas", "Menlo", "方正屏显雅宋简体", monospace;
 }
