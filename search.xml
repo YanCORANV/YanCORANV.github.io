@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>pkl &amp; npz</title>
+      <link href="/2026/04/14/Coding/pkl%20&amp;%20npz/"/>
+      <url>/2026/04/14/Coding/pkl%20&amp;%20npz/</url>
+      
+        <content type="html"><![CDATA[<h1>什么是 .pkl (Pickle) 格式？</h1><p>Pickle 是 Python 自带的一个序列化模块。所谓“序列化”，就是把内存里的 Python 对象（比如列表、字典、甚至你自己写的类实例）转化成一串二进制字节流，保存到硬盘上</p><ul><li>能存什么：几乎所有的 Python 对象。包括：<ul><li>简单的：列表、字典、字符串</li><li>复杂的：训练好的机器学习模型（如 Scikit-learn 模型）、自定义的类、嵌套非常深的数据结构</li></ul></li><li>优点：<ul><li>极其通用：只要是 Python 对象，通常都能保存</li><li>保持结构：读回来的时候，原来的字典还是字典，类还是类</li></ul></li><li>缺点：<ul><li>安全性差：加载不明来源的 .pkl 文件可能会执行恶意代码</li><li>跨语言难：它是 Python 专用的，很难在 C++ 或 Java 中直接读取</li><li>性能一般：对于海量纯数值数据，读写速度不如专门的格式</li></ul></li></ul><p>代码示例：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"></span><br><span class="line">data = &#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;Alice&#x27;</span>, <span class="string">&#x27;scores&#x27;</span>: [<span class="number">95</span>, <span class="number">88</span>, <span class="number">100</span>]&#125;</span><br><span class="line"><span class="comment"># 保存</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;data.pkl&#x27;</span>, <span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    pickle.dump(data, f)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加载</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;data.pkl&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    loaded_data = pickle.load(f)</span><br></pre></td></tr></table></figure><h1>什么是 .npz (NumPy Zip) 格式？</h1><p>.npz 是 NumPy 库特有的压缩格式。它其实是一个 ZIP 压缩包，里面打包了多个 .npy 文件（每个 .npy 文件代表一个独立的 NumPy 数组）</p><ul><li>能存什么：专门存储 NumPy 数组（ndarrays）</li><li>优点：<ul><li>高效且省空间：专门为数字矩阵优化，读取速度极快，且支持压缩（savez_compressed）</li><li>支持“延迟加载” (Lazy Loading)：当你打开一个 10GB 的 .npz 时，它不会立刻把所有数组塞进内存，而是等到你真正访问某个数组（如 data[‘arr1’]）时才读取</li><li>适合大数据集：常用于存储深度学习的权重、训练集的特征向量等</li></ul></li><li>缺点：<ul><li>单一性：虽然也能强行存一些简单对象，但它主要是为数组设计的，不适合存复杂的自定义类</li></ul></li></ul><p>代码示例：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">arr1 = np.array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</span><br><span class="line">arr2 = np.array([[<span class="number">4</span>, <span class="number">5</span>], [<span class="number">6</span>, <span class="number">7</span>]])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 保存（可以给数组起名）</span></span><br><span class="line">np.savez(<span class="string">&#x27;arrays.npz&#x27;</span>, x=arr1, y=arr2)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加载</span></span><br><span class="line">data = np.load(<span class="string">&#x27;arrays.npz&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(data[<span class="string">&#x27;x&#x27;</span>]) <span class="comment"># 访问指定的数组</span></span><br></pre></td></tr></table></figure><h1>对比</h1><table><thead><tr><th>特性</th><th>.pkl (Pickle)</th><th>.npz (NumPy)</th></tr></thead><tbody><tr><td>主要用途</td><td>保存复杂对象、训练好的模型</td><td>保存大量的数字矩阵、多维数组</td></tr><tr><td>支持类型</td><td>几乎所有 Python 类型</td><td>主要是 NumPy 数组</td></tr><tr><td>读取速度</td><td>较慢（对数值数据）</td><td>极快（对数值数据）</td></tr><tr><td>安全性</td><td>存在安全风险（不建议加载未知文件）</td><td>相对安全</td></tr><tr><td>存储方式</td><td>单一二进制流</td><td>多个数组的压缩包（ZIP）</td></tr><tr><td>典型场景</td><td>保存 RandomForest 模型、配置字典</td><td>保存 深度学习权重、图像像素矩阵</td></tr></tbody></table><ul><li>处理纯数字、矩阵、张量（比如特征、图像数据、权重），选 .npz 或 .npy</li><li>需要把整个模型、复杂的配置、或者是各种乱七八糟的对象存成一个文件，选择 .pkl</li><li>在深度学习中（如 PyTorch），模型文件通常也是基于 pickle 的变体（如 .pth 或 .pt），但内部针对张量存储做了特殊优化</li></ul><p><img src="/img/image-6.png" alt=""></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Coding </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>新托福经验分享</title>
       <link href="/2026/03/12/TOEFL/%E6%96%B0%E6%89%98%E7%A6%8F%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/"/>
       <url>/2026/03/12/TOEFL/%E6%96%B0%E6%89%98%E7%A6%8F%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/</url>
@@ -27,7 +46,7 @@
       <link href="/2026/03/11/Music/%E4%B9%90%E7%90%86/"/>
       <url>/2026/03/11/Music/%E4%B9%90%E7%90%86/</url>
       
-        <content type="html"><![CDATA[<h1>唱名和音名</h1><ul><li>唱名 do re mi fa sol la si</li><li>音名 C D E F G A B<img src="../../../img/image-15.png" alt=""><ul><li>并非永远等价</li></ul></li></ul><h1>调号和拍号</h1><ul><li>调号 <code>1=C </code><ul><li>12 个调号</li><li><code>1=？</code> 意味着 do / 1 对应哪个音名</li></ul></li><li>拍号 $\frac{4}{4}$</li></ul><h1>记忆</h1><ol><li>唱名<img src="../../../img/image-16.png" alt=""></li><li>音名<img src="../../../img/image-17.png" alt=""></li></ol><p>123</p>]]></content>
+        <content type="html"><![CDATA[<h1>唱名和音名</h1><ul><li>唱名 do re mi fa sol la si</li><li>音名 C D E F G A B<img src="../../../img/image-15.png" alt=""><ul><li>并非永远等价</li></ul></li></ul><h1>调号和拍号</h1><ul><li>调号 <code>1=C </code><ul><li>12 个调号</li><li><code>1=？</code> 意味着 do / 1 对应哪个音名</li></ul></li><li>拍号 $\frac{4}{4}$</li></ul><h1>记忆</h1><ol><li>唱名<img src="../../../img/image-16.png" alt=""></li><li>音名<img src="../../../img/image-17.png" alt=""></li></ol>]]></content>
       
       
       <categories>
