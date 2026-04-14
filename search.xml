@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>SSH</title>
+      <link href="/2026/04/14/Coding/SSH/"/>
+      <url>/2026/04/14/Coding/SSH/</url>
+      
+        <content type="html"><![CDATA[<h1>1. 什么是 SSH？</h1><p>SSH 是一种加密的网络传输协议。它允许你在不安全的网络环境中，建立起一条从本地计算机到远程计算机的安全加密信道</p><ul><li>核心功能：远程登录会话（Remote Login）和远程命令执行</li><li>安全性：SSH 对所有传输的数据进行加密，有效防止了密码拦截、中间人攻击（MITM）和数据篡改</li></ul><h1>2. SSH 与服务器的关系：客户端-服务器模型</h1><p>SSH 运作基于典型的 Client-Server（客户端-服务器） 模型：</p><h2 id="A-服务端-SSH-Server">A. 服务端 (SSH Server)</h2><p>远程服务器（例如实验室的计算节点或云端物理机）运行着一个名为 <code>sshd</code> 的后台守护进程。它时刻监听特定的端口（默认是 22 端口），等待连接请求</p><h2 id="B-客户端-SSH-Client">B. 客户端 (SSH Client)</h2><p>你的本地设备（如运行 WSL 2 的笔记本电脑）。你通过 SSH 客户端程序发起连接，验证身份后，即可在本地终端操作远程服务器</p><h1>3. 身份验证：密码 Vs. 密钥</h1><p>建立 SSH 连接时，验证身份主要有两种方式：</p><table><thead><tr><th>方式</th><th>逻辑</th><th>安全性</th><th>便捷性</th></tr></thead><tbody><tr><td>密码验证</td><td>每次登录输入服务器账号密码。</td><td>较低（易受暴力破解攻击）。</td><td>较低（需频繁输入）。</td></tr><tr><td>密钥验证 (推荐)</td><td>使用非对称加密：本地存私钥（Private Key），服务器存公钥（Public Key）。</td><td>极高（理论上不可破解）。</td><td>极高（配合 SSH Agent 可实现免密登录）。</td></tr></tbody></table><h1>4. SSH 的应用场景</h1><h2 id="A-远程终端访问">A. 远程终端访问</h2><p>通过命令行直接操控服务器，就像操作本地的 Linux 终端一样</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh username@server_ip</span><br></pre></td></tr></table></figure><h2 id="B-文件传输-SCP-SFTP">B. 文件传输 (SCP/SFTP)</h2><p>基于 SSH 协议的安全文件拷贝</p><h3 id="1-SCP-Secure-Copy-：单次、快速的指令搬运">1. SCP (Secure Copy)：单次、快速的指令搬运</h3><p>SCP 就像是一个“快递员”。你告诉他：从哪里取件（本地路径），送到哪里（远程地址和路径）。任务完成后，连接立刻关闭</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scp ./local_data.npz  username@server_ip:/remote/path</span><br><span class="line"><span class="comment">#  [1] 这里的本地文件   [2] 这里的远程用户+地址 [3] 冒号后跟远程路径</span></span><br></pre></td></tr></table></figure><ul><li>特点：一次性操作。你必须预先知道文件的确切位置</li><li>如果你想传输整个文件夹，需要加 <code>-r</code>（Recursive，递归）：<code>scp -r ./my_dataset username@server_ip:/remote/path</code></li></ul><h3 id="2-SFTP-SSH-File-Transfer-Protocol-：持续、交互的文件夹管理器">2. SFTP (SSH File Transfer Protocol)：持续、交互的文件夹管理器</h3><p>SFTP 就像是一个“远程文件浏览器”。当你输入 <code>sftp username@server_ip</code> 后，你并不是执行一个命令，而是进入了一个新的会话环境</p><h3 id="操作流">操作流</h3><ol><li>登录：<code>sftp zhanxi@192.168.x.x</code></li><li>查看远程目录：<code>ls</code></li><li>进入远程目录：<code>cd /remote/data</code></li><li>把本地文件推上去：<code>put local_file.pkl</code></li><li>把远程文件下载下来：<code>get remote_file.npz</code></li><li>退出：<code>exit</code> 或 <code>bye</code></li></ol><ul><li>特点：交互式。你可以在里面来回浏览、创建目录、删除文件，就像在操作本地硬盘一样，但速度受网络延迟影响</li></ul><h2 id="C-VS-Code-远程开发-Remote-SSH">C. VS Code 远程开发 (Remote-SSH)</h2><p>这是目前最高效的开发方式。通过 VS Code 的 Remote-SSH 插件，你可以直接在本地编辑器里打开服务器上的代码文件夹</p><ul><li>体验：代码补全、调试（Debug）和终端运行都在服务器上，但交互界面在本地，极大地降低了网络延迟带来的不适感</li></ul><h1>5. SSH Config 配置文件</h1><p>当你需要管理多个服务器时，记住 IP 地址是不现实的。通过配置 <code>~/.ssh/config</code> 文件，可以实现快捷登录</p><p>配置示例：</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">Host</span> <span class="string">lab-gpu</span></span><br><span class="line">    <span class="string">HostName</span> <span class="number">192.168</span><span class="number">.1</span><span class="number">.100</span></span><br><span class="line">    <span class="string">User</span> <span class="string">zhanxi</span></span><br><span class="line">    <span class="string">IdentityFile</span> <span class="string">~/.ssh/id_rsa</span></span><br><span class="line">    <span class="string">Port</span> <span class="number">22</span></span><br></pre></td></tr></table></figure><p>效果：原本冗长的 <code>ssh zhanxi@192.168.1.100</code> 简化为 <code>ssh lab-gpu</code></p><h1>5. SSH 隧道 (Tunneling/Port Forwarding)</h1><p>有些可视化工具（如 TensorBoard 或某些 3D 渲染 Web 端）运行在服务器的特定端口上。通过 SSH 隧道，你可以将服务器的端口映射到本地浏览器访问</p><p>示例：将服务器的 6006 端口（TensorBoard）映射到本地：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -L 6006:localhost:6006 username@server_ip</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> Coding </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title></title>
       <link href="/2026/04/14/Coding/ssh%20%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
       <url>/2026/04/14/Coding/ssh%20%E6%9C%8D%E5%8A%A1%E5%99%A8/</url>
@@ -340,11 +359,11 @@
     
     
     <entry>
-      <title>Json学习分享</title>
-      <link href="/2026/02/13/Coding/Json/"/>
-      <url>/2026/02/13/Coding/Json/</url>
+      <title>Pytorch学习</title>
+      <link href="/2026/02/13/Coding/Pytorch%E5%AD%A6%E4%B9%A0/"/>
+      <url>/2026/02/13/Coding/Pytorch%E5%AD%A6%E4%B9%A0/</url>
       
-        <content type="html"><![CDATA[<h1>是什么</h1><ul><li>JSON (JavaScript Object Notation) 是一种轻量级的数据交换格式。</li><li>它基于 JavaScript 的一个子集，但独立于语言。</li><li>JSON 文档通常用来表示结构化的数据，例如一个树状图</li></ul><h1>基本构成</h1><ul><li><strong>对象 (Object)</strong>：由键值对组成，键是字符串，值可以是字符串、数字、布尔值、null、数组或另一个对象。用花括号 <code>&#123;&#125;</code> 包裹。<br>例如：<code>&#123;&quot;name&quot;: &quot;Alice&quot;, &quot;age&quot;: 30&#125;</code></li><li><strong>数组 (Array)</strong>：由有序的值列表组成，值可以是任何 JSON 支持的数据类型。用方括号 <code>[]</code> 包裹。<br>例如：<code>[&quot;apple&quot;, &quot;banana&quot;, &quot;cherry&quot;]</code></li><li><strong>基本类型 (Primitive Types)</strong>：字符串 (string), 数字 (number), 布尔值 (boolean), null。<br>例如：<code>&quot;hello&quot;</code>, <code>123</code>, <code>true</code>, <code>null</code></li></ul><h1>Json Schema</h1><ul><li>JSON Schema 是一种描述 JSON 数据格式的规范,就像一个模板，它定义了 JSON 数据应该长什么样，比如哪些字段是必需的，字段的类型是什么，允许的取值范围是什么等等。</li></ul><h1>人话</h1><p>json就是一种文件格式，用来规范地表示数据，尤其是有层级结构（父子关系）的数据，json可以有模板，也就是json schema，用于规范json文件的格式，数值范围等等，json文件可以包括object, array and primitive types,具有层级结构，最高层的是object或者array</p>]]></content>
+        <content type="html"><![CDATA[<blockquote><p>前言的前面：我先学python好了。。</p></blockquote><blockquote><p>前言：我一定会学下去QAQ，学习的是小土堆的Pytorch教程，链接附上：<a href="https://www.bilibili.com/video/BV1hE411t7RN/?p=4&amp;share_source=copy_web&amp;vd_source=4e96034b69dd2ab8a256b6fa1afce29c">PyTorch深度学习快速入门教程</a>，加油喵</p></blockquote><h1>Python学习中的重要函数</h1><ol><li><code>dir()</code>相当于打开一个package（package就像一个工具箱，一个library）</li><li><code>help()</code>相当于调出这个东西的说明书</li></ol><ul><li>先要明白package和module<ul><li>package-&gt;类似c语言中的library,下面还可以有Package和module</li><li>module-&gt;一个<code>.py</code>文件，放着具体的工具（函数，类，变量）</li><li>package相当于一个directory,通常包含一个特殊的 <code>__init__.py</code> 文件；而module是一个.py文件<br>例如</li></ul></li></ul><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="built_in">dir</span>(torch)</span><br><span class="line"><span class="comment"># 这里package的名字是torch,里面有one two three four四个子package(其实是module)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> torch.one</span><br><span class="line"><span class="built_in">dir</span>(torch.one)</span><br><span class="line"><span class="comment"># 如果torch里面的东西不是一个package或者一个module了，而是一个具体的工具，我们就可以用help看看这个工具的用法</span></span><br><span class="line"><span class="built_in">help</span>(torch.one.a)</span><br><span class="line"><span class="comment"># 查a怎么使用</span></span><br></pre></td></tr></table></figure>]]></content>
       
       
       <categories>
@@ -359,11 +378,11 @@
     
     
     <entry>
-      <title>Pytorch学习</title>
-      <link href="/2026/02/13/Coding/Pytorch%E5%AD%A6%E4%B9%A0/"/>
-      <url>/2026/02/13/Coding/Pytorch%E5%AD%A6%E4%B9%A0/</url>
+      <title>Json学习分享</title>
+      <link href="/2026/02/13/Coding/Json/"/>
+      <url>/2026/02/13/Coding/Json/</url>
       
-        <content type="html"><![CDATA[<blockquote><p>前言的前面：我先学python好了。。</p></blockquote><blockquote><p>前言：我一定会学下去QAQ，学习的是小土堆的Pytorch教程，链接附上：<a href="https://www.bilibili.com/video/BV1hE411t7RN/?p=4&amp;share_source=copy_web&amp;vd_source=4e96034b69dd2ab8a256b6fa1afce29c">PyTorch深度学习快速入门教程</a>，加油喵</p></blockquote><h1>Python学习中的重要函数</h1><ol><li><code>dir()</code>相当于打开一个package（package就像一个工具箱，一个library）</li><li><code>help()</code>相当于调出这个东西的说明书</li></ol><ul><li>先要明白package和module<ul><li>package-&gt;类似c语言中的library,下面还可以有Package和module</li><li>module-&gt;一个<code>.py</code>文件，放着具体的工具（函数，类，变量）</li><li>package相当于一个directory,通常包含一个特殊的 <code>__init__.py</code> 文件；而module是一个.py文件<br>例如</li></ul></li></ul><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="built_in">dir</span>(torch)</span><br><span class="line"><span class="comment"># 这里package的名字是torch,里面有one two three four四个子package(其实是module)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> torch.one</span><br><span class="line"><span class="built_in">dir</span>(torch.one)</span><br><span class="line"><span class="comment"># 如果torch里面的东西不是一个package或者一个module了，而是一个具体的工具，我们就可以用help看看这个工具的用法</span></span><br><span class="line"><span class="built_in">help</span>(torch.one.a)</span><br><span class="line"><span class="comment"># 查a怎么使用</span></span><br></pre></td></tr></table></figure>]]></content>
+        <content type="html"><![CDATA[<h1>是什么</h1><ul><li>JSON (JavaScript Object Notation) 是一种轻量级的数据交换格式。</li><li>它基于 JavaScript 的一个子集，但独立于语言。</li><li>JSON 文档通常用来表示结构化的数据，例如一个树状图</li></ul><h1>基本构成</h1><ul><li><strong>对象 (Object)</strong>：由键值对组成，键是字符串，值可以是字符串、数字、布尔值、null、数组或另一个对象。用花括号 <code>&#123;&#125;</code> 包裹。<br>例如：<code>&#123;&quot;name&quot;: &quot;Alice&quot;, &quot;age&quot;: 30&#125;</code></li><li><strong>数组 (Array)</strong>：由有序的值列表组成，值可以是任何 JSON 支持的数据类型。用方括号 <code>[]</code> 包裹。<br>例如：<code>[&quot;apple&quot;, &quot;banana&quot;, &quot;cherry&quot;]</code></li><li><strong>基本类型 (Primitive Types)</strong>：字符串 (string), 数字 (number), 布尔值 (boolean), null。<br>例如：<code>&quot;hello&quot;</code>, <code>123</code>, <code>true</code>, <code>null</code></li></ul><h1>Json Schema</h1><ul><li>JSON Schema 是一种描述 JSON 数据格式的规范,就像一个模板，它定义了 JSON 数据应该长什么样，比如哪些字段是必需的，字段的类型是什么，允许的取值范围是什么等等。</li></ul><h1>人话</h1><p>json就是一种文件格式，用来规范地表示数据，尤其是有层级结构（父子关系）的数据，json可以有模板，也就是json schema，用于规范json文件的格式，数值范围等等，json文件可以包括object, array and primitive types,具有层级结构，最高层的是object或者array</p>]]></content>
       
       
       <categories>
