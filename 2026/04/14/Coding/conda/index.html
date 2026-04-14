@@ -9,12 +9,12 @@
     <meta name="description" content="1. 什么是 Conda？ Conda 是一个开源的包管理系统和环境管理系统  包管理：类似于 pip 或 npm，负责安装库 环境管理：类似于 .venv，但权限更高。它不仅能隔离 Python 库，还能隔离 Python 解释器本身 以及 系统级依赖（如 CUDA, C++ 编译器）  Anaconda &amp; Miniconda  Anaconda：安装包很大（数 GB），自带了可能永远">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Conda">
-<meta property="og:url" content="https://yancoranv.github.io/2026/04/14/Coding/conda/index.html">
+<meta property="og:url" content="https://yancoranv.github.io/2026/04/14/Coding/Conda/index.html">
 <meta property="og:site_name" content="Hi. Yan here.">
 <meta property="og:description" content="1. 什么是 Conda？ Conda 是一个开源的包管理系统和环境管理系统  包管理：类似于 pip 或 npm，负责安装库 环境管理：类似于 .venv，但权限更高。它不仅能隔离 Python 库，还能隔离 Python 解释器本身 以及 系统级依赖（如 CUDA, C++ 编译器）  Anaconda &amp; Miniconda  Anaconda：安装包很大（数 GB），自带了可能永远">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2026-04-14T10:42:09.635Z">
-<meta property="article:modified_time" content="2026-04-14T13:30:14.418Z">
+<meta property="article:modified_time" content="2026-04-14T14:02:15.337Z">
 <meta property="article:author" content="Yan Zhanxi">
 <meta name="twitter:card" content="summary">
     
@@ -106,17 +106,17 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://yancoranv.github.io/2026/04/14/Coding/conda/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&text=Conda"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&title=Conda"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&is_video=false&description=Conda"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Conda&body=Check out this article: https://yancoranv.github.io/2026/04/14/Coding/conda/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&title=Conda"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&title=Conda"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&title=Conda"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&title=Conda"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&name=Conda&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://yancoranv.github.io/2026/04/14/Coding/conda/&t=Conda"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://yancoranv.github.io/2026/04/14/Coding/Conda/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://yancoranv.github.io/2026/04/14/Coding/Conda/&text=Conda"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://yancoranv.github.io/2026/04/14/Coding/Conda/&title=Conda"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://yancoranv.github.io/2026/04/14/Coding/Conda/&is_video=false&description=Conda"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Conda&body=Check out this article: https://yancoranv.github.io/2026/04/14/Coding/Conda/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://yancoranv.github.io/2026/04/14/Coding/Conda/&title=Conda"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://yancoranv.github.io/2026/04/14/Coding/Conda/&title=Conda"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://yancoranv.github.io/2026/04/14/Coding/Conda/&title=Conda"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://yancoranv.github.io/2026/04/14/Coding/Conda/&title=Conda"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://yancoranv.github.io/2026/04/14/Coding/Conda/&name=Conda&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://yancoranv.github.io/2026/04/14/Coding/Conda/&t=Conda"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -355,17 +355,17 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://yancoranv.github.io/2026/04/14/Coding/conda/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&text=Conda"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&title=Conda"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&is_video=false&description=Conda"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Conda&body=Check out this article: https://yancoranv.github.io/2026/04/14/Coding/conda/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&title=Conda"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&title=Conda"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&title=Conda"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&title=Conda"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://yancoranv.github.io/2026/04/14/Coding/conda/&name=Conda&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://yancoranv.github.io/2026/04/14/Coding/conda/&t=Conda"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://yancoranv.github.io/2026/04/14/Coding/Conda/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://yancoranv.github.io/2026/04/14/Coding/Conda/&text=Conda"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://yancoranv.github.io/2026/04/14/Coding/Conda/&title=Conda"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://yancoranv.github.io/2026/04/14/Coding/Conda/&is_video=false&description=Conda"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Conda&body=Check out this article: https://yancoranv.github.io/2026/04/14/Coding/Conda/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://yancoranv.github.io/2026/04/14/Coding/Conda/&title=Conda"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://yancoranv.github.io/2026/04/14/Coding/Conda/&title=Conda"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://yancoranv.github.io/2026/04/14/Coding/Conda/&title=Conda"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://yancoranv.github.io/2026/04/14/Coding/Conda/&title=Conda"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://yancoranv.github.io/2026/04/14/Coding/Conda/&name=Conda&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://yancoranv.github.io/2026/04/14/Coding/Conda/&t=Conda"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
