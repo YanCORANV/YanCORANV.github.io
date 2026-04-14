@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="人体拓扑结构、标准骨架和权重的数据文件 如 SMPL、SMPL-X 模型或类似的数字人体模型，通常以 .pkl（Python Pickle）或 .npz（NumPy Compressed Archive）格式存储，包含了将网格变成可变形的人体的所有核心数学描述    组件 数学符号 作用     Vertices V 人体表面的点云   Joints J 旋转发生的中心点   Weights W">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SMPL">
+<meta property="og:url" content="https://yancoranv.github.io/2026/04/14/VLA/SMPL/index.html">
+<meta property="og:site_name" content="欢迎来到Yan的博客 ^^">
+<meta property="og:description" content="人体拓扑结构、标准骨架和权重的数据文件 如 SMPL、SMPL-X 模型或类似的数字人体模型，通常以 .pkl（Python Pickle）或 .npz（NumPy Compressed Archive）格式存储，包含了将网格变成可变形的人体的所有核心数学描述    组件 数学符号 作用     Vertices V 人体表面的点云   Joints J 旋转发生的中心点   Weights W">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-04-14T06:24:05.097Z">
+<meta property="article:modified_time" content="2026-04-14T06:24:05.097Z">
+<meta property="article:author" content="Yan Zhanxi">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>SMPL</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="顶部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/categories/">归档</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">项目</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/2026/04/14/Coding/pkl%20&%20npz/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://yancoranv.github.io/2026/04/14/VLA/SMPL/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://yancoranv.github.io/2026/04/14/VLA/SMPL/&text=SMPL"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://yancoranv.github.io/2026/04/14/VLA/SMPL/&title=SMPL"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://yancoranv.github.io/2026/04/14/VLA/SMPL/&is_video=false&description=SMPL"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=SMPL&body=Check out this article: https://yancoranv.github.io/2026/04/14/VLA/SMPL/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://yancoranv.github.io/2026/04/14/VLA/SMPL/&title=SMPL"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://yancoranv.github.io/2026/04/14/VLA/SMPL/&title=SMPL"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://yancoranv.github.io/2026/04/14/VLA/SMPL/&title=SMPL"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://yancoranv.github.io/2026/04/14/VLA/SMPL/&title=SMPL"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://yancoranv.github.io/2026/04/14/VLA/SMPL/&name=SMPL&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://yancoranv.github.io/2026/04/14/VLA/SMPL/&t=SMPL"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">人体拓扑结构、标准骨架和权重的数据文件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%8B%93%E6%89%91%E7%BB%93%E6%9E%84-Topology-Mesh"><span class="toc-number">1.1.</span> <span class="toc-text">1. 拓扑结构 (Topology &#x2F; Mesh)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%A0%87%E5%87%86%E9%AA%A8%E6%9E%B6-Template-Skeleton-J"><span class="toc-number">1.2.</span> <span class="toc-text">2. 标准骨架 (Template Skeleton &#x2F; J)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9E%E5%BD%92%E7%9F%A9%E9%98%B5-Joint-Regressor"><span class="toc-number">1.2.1.</span> <span class="toc-text">回归矩阵 (Joint Regressor)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%B7%B7%E5%90%88%E6%9D%83%E9%87%8D-Blend-Weights-W"><span class="toc-number">1.3.</span> <span class="toc-text">3. 混合权重 (Blend Weights &#x2F; $W$)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%B7%B7%E5%90%88%E5%BD%A2%E7%8A%B6-Blend-Shapes"><span class="toc-number">1.4.</span> <span class="toc-text">4. 混合形状 (Blend Shapes)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">SMPL_basic.ipynb</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AE%B9"><span class="toc-number">2.1.</span> <span class="toc-text">内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E6%95%B0"><span class="toc-number">2.2.</span> <span class="toc-text">参数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#A-beta-Shape-Betas-%E5%BD%A2%E7%8A%B6%E5%8F%82%E6%95%B0"><span class="toc-number">2.2.0.1.</span> <span class="toc-text">A. $\beta$ (Shape &#x2F; Betas - 形状参数)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#B-theta-Pose-%E5%A7%BF%E6%80%81%E5%8F%82%E6%95%B0"><span class="toc-number">2.2.0.2.</span> <span class="toc-text">B. $\theta$ (Pose - 姿态参数)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#C-T-Translation-%E4%BD%8D%E7%A7%BB%E5%8F%82%E6%95%B0"><span class="toc-number">2.2.0.3.</span> <span class="toc-text">C. $T$ (Translation - 位移参数)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#D-J-regressor-%E5%85%B3%E8%8A%82%E5%9B%9E%E5%BD%92%E7%9F%A9%E9%98%B5"><span class="toc-number">2.2.0.4.</span> <span class="toc-text">D. $J_regressor$ (关节回归矩阵)</span></a></li></ol></li></ol></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        SMPL
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Yan Zhanxi</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2026-04-14T06:24:05.097Z" class="dt-published" itemprop="datePublished">2026-04-14</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/VLA/">VLA</a>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h1>人体拓扑结构、标准骨架和权重的数据文件</h1>
+<p>如 SMPL、SMPL-X 模型或类似的数字人体模型，通常以 <code>.pkl</code>（Python Pickle）或 <code>.npz</code>（NumPy Compressed Archive）格式存储，包含了将网格变成可变形的人体的所有核心数学描述</p>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>数学符号</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vertices</td>
+<td>V</td>
+<td>人体表面的点云</td>
+</tr>
+<tr>
+<td>Joints</td>
+<td>J</td>
+<td>旋转发生的中心点</td>
+</tr>
+<tr>
+<td>Weights</td>
+<td>W</td>
+<td>决定哪些点跟着哪根骨头动</td>
+</tr>
+<tr>
+<td>Faces</td>
+<td>F</td>
+<td>渲染时用于连点成面</td>
+</tr>
+<tr>
+<td>Regressors</td>
+<td>R</td>
+<td>从皮肤表面推算骨骼位置的矩阵</td>
+</tr>
+</tbody>
+</table>
+<h2 id="1-拓扑结构-Topology-Mesh">1. 拓扑结构 (Topology / Mesh)</h2>
+<p>拓扑定义了人体的“形状基础”。它不包含具体的位置坐标，而是定义了点与点之间的连接关系</p>
+<ul>
+<li>顶点 (Vertices): 一个 $N \times 3$ 的矩阵，代表人体表面所有点的初始坐标（通常是 T-Pose 或 A-Pose）</li>
+<li>面片 (Faces): 一个 $M \times 3$ 的整数矩阵，定义了哪些顶点组合成一个三角面片</li>
+<li>意义: 无论人体如何运动，顶点之间的连接关系（拓扑）是不变的</li>
+</ul>
+<h2 id="2-标准骨架-Template-Skeleton-J">2. 标准骨架 (Template Skeleton / J)</h2>
+<p>标准骨架定义了人体的“关节中心”</p>
+<ul>
+<li>关节点 (Joints): 通常由 $K \times 3$ 的坐标组成。在 SMPL 模型中，这些关节点通常是从顶点坐标中通过一个回归矩阵 (Joint Regressor) 计算出来的</li>
+<li>运动链 (Kinematic Tree): 定义了骨骼的父子关系（例如：手肘是肩膀的子节点）。这决定了旋转是如何从躯干传递到四肢的</li>
+<li>$K$ (行数)： 关节点的数量。在标准 SMPL 模型中，$K = 24$（包括盆骨、膝盖、脚踝、脖子、肩膀等）</li>
+<li>作用： 它们是人体旋转的中心点。当你摆动大腿时，所有的顶点都会绕着“髋关节（Hip Joint）”这个坐标进行旋转</li>
+</ul>
+<h3 id="回归矩阵-Joint-Regressor">回归矩阵 (Joint Regressor)</h3>
+<p>关节点的位置不是固定不变的，而是随着人体形状（Shape）的变化而自动调整$$J = \mathcal{W} \cdot V$$</p>
+<ul>
+<li>$V (N \times 3)$： 所有顶点坐标</li>
+<li>$\mathcal{W} (K \times N)$： 线性回归矩阵（Joint Regressor）
+<ul>
+<li>这个矩阵非常稀疏。对于每一个关节点（如手肘），$\mathcal{W}$ 只在对应手肘周围的顶点索引上有权重</li>
+<li>关节点坐标实际上是它周围一圈顶点坐标的加权平均值</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-混合权重-Blend-Weights-W">3. 混合权重 (Blend Weights / $W$)</h2>
+<p>这是让皮肤随骨骼自然移动的关键</p>
+<ul>
+<li>数据结构: 一个大小为 $N \times K$ 的矩阵（$N$ 为顶点数，$K$ 为关节数）</li>
+<li>功能: 它定义了每一个顶点受每一个关节运动影响的程度
+<ul>
+<li>例如，大腿上的一个顶点可能 90% 受大腿骨旋转影响，10% 受臀部旋转影响</li>
+</ul>
+</li>
+<li>线性混合蒙皮 (LBS): 最终顶点的坐标是通过这些权重对相邻骨骼的变化进行加权平均计算出来的</li>
+</ul>
+<h2 id="4-混合形状-Blend-Shapes">4. 混合形状 (Blend Shapes)</h2>
+<p>为了让模型更逼真，文件中通常还包含两类修正项：</p>
+<ul>
+<li>形状混合形状 (Shape Blendshapes / $\beta$): 解决“高矮胖瘦”的问题。通过 PCA（主成分分析）定义的基向量，改变 $\beta$ 参数可以调整人体的比例</li>
+<li>姿态混合形状 (Pose Blendshapes): 解决“皮肤扭曲”的问题。例如当手臂弯曲时，为了防止肘部像纸盒一样塌陷，模型会根据旋转角度自动补偿顶点的偏移</li>
+</ul>
+<h1>SMPL_basic.ipynb</h1>
+<h2 id="内容">内容</h2>
+<ul>
+<li>模型加载：加载包含人体拓扑结构、标准骨架和权重的数据文件（通常是 <code>.pkl</code> 或 <code>.npz</code>）</li>
+<li>参数初始化：定义初始的形状参数（Betas）和姿态参数（Pose）</li>
+<li>前向计算过程：
+<ol>
+<li>形状融合 (Shape Blend Shapes)：根据 Betas 调整基础模型的胖瘦高矮</li>
+<li>姿态融合 (Pose Blend Shapes)：根据旋转角度调整关节处的皮肤变形（避免生硬的折痕）</li>
+<li>正向运动学 (Forward Kinematics)：计算各关节在空间中的位置</li>
+<li>蒙皮 (Skinning)：将顶点按照权重绑定到骨骼上，形成最终的人体网格</li>
+</ol>
+</li>
+<li>可视化：使用交互式工具展示生成的三维人体模型</li>
+</ul>
+<h2 id="参数">参数</h2>
+<h4 id="A-beta-Shape-Betas-形状参数">A. $\beta$ (Shape / Betas - 形状参数)</h4>
+<ul>
+<li>含义：描述人体的身材特征（如身高、胖瘦、腰围、头身比等）</li>
+<li>形式：通常是一个 10 维的向量</li>
+<li>原理：这是通过对数千个人体扫描样本进行主成分分析（PCA）得到的。$\beta_1$ 通常控制身高/胖瘦，$\beta_2$ 控制肌肉度等</li>
+</ul>
+<h4 id="B-theta-Pose-姿态参数">B. $\theta$ (Pose - 姿态参数)</h4>
+<ul>
+<li>含义：描述人体 24 个关节的旋转角度</li>
+<li>形式：$24 \times 3 = 72$ 维向量（使用轴角/Axis-angle 表示），或者 $24 \times 3 \times 3$（旋转矩阵）</li>
+<li>组成：
+<ul>
+<li>Root Rotation (Global Orient)：前 3 维，决定人体的整体朝向（是面朝北还是面朝南）</li>
+<li>Body Pose：剩余的 69 维，描述各关节（如膝盖、手肘）相对于其“父节点”的旋转</li>
+</ul>
+</li>
+</ul>
+<h4 id="C-T-Translation-位移参数">C. $T$ (Translation - 位移参数)</h4>
+<ul>
+<li>含义：人体盆骨（根节点）在世界坐标系中的绝对 $XYZ$ 位置</li>
+<li>形式：3 维向量 $[x, y, z]$</li>
+</ul>
+<h4 id="D-J-regressor-关节回归矩阵">D. $J_regressor$ (关节回归矩阵)</h4>
+<ul>
+<li>含义：定义了如何从人体表面的 6890 个顶点中计算出那 24 个关节的中心点位置</li>
+<li>重要性：它决定了“关节”到底在哪里。</li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">首页</a></li>
+        
+          <li><a href="/about/">关于</a></li>
+        
+          <li><a href="/categories/">归档</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="http://github.com/probberechts">项目</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">人体拓扑结构、标准骨架和权重的数据文件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%8B%93%E6%89%91%E7%BB%93%E6%9E%84-Topology-Mesh"><span class="toc-number">1.1.</span> <span class="toc-text">1. 拓扑结构 (Topology &#x2F; Mesh)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%A0%87%E5%87%86%E9%AA%A8%E6%9E%B6-Template-Skeleton-J"><span class="toc-number">1.2.</span> <span class="toc-text">2. 标准骨架 (Template Skeleton &#x2F; J)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9E%E5%BD%92%E7%9F%A9%E9%98%B5-Joint-Regressor"><span class="toc-number">1.2.1.</span> <span class="toc-text">回归矩阵 (Joint Regressor)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%B7%B7%E5%90%88%E6%9D%83%E9%87%8D-Blend-Weights-W"><span class="toc-number">1.3.</span> <span class="toc-text">3. 混合权重 (Blend Weights &#x2F; $W$)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%B7%B7%E5%90%88%E5%BD%A2%E7%8A%B6-Blend-Shapes"><span class="toc-number">1.4.</span> <span class="toc-text">4. 混合形状 (Blend Shapes)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">SMPL_basic.ipynb</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AE%B9"><span class="toc-number">2.1.</span> <span class="toc-text">内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E6%95%B0"><span class="toc-number">2.2.</span> <span class="toc-text">参数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#A-beta-Shape-Betas-%E5%BD%A2%E7%8A%B6%E5%8F%82%E6%95%B0"><span class="toc-number">2.2.0.1.</span> <span class="toc-text">A. $\beta$ (Shape &#x2F; Betas - 形状参数)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#B-theta-Pose-%E5%A7%BF%E6%80%81%E5%8F%82%E6%95%B0"><span class="toc-number">2.2.0.2.</span> <span class="toc-text">B. $\theta$ (Pose - 姿态参数)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#C-T-Translation-%E4%BD%8D%E7%A7%BB%E5%8F%82%E6%95%B0"><span class="toc-number">2.2.0.3.</span> <span class="toc-text">C. $T$ (Translation - 位移参数)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#D-J-regressor-%E5%85%B3%E8%8A%82%E5%9B%9E%E5%BD%92%E7%9F%A9%E9%98%B5"><span class="toc-number">2.2.0.4.</span> <span class="toc-text">D. $J_regressor$ (关节回归矩阵)</span></a></li></ol></li></ol></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://yancoranv.github.io/2026/04/14/VLA/SMPL/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://yancoranv.github.io/2026/04/14/VLA/SMPL/&text=SMPL"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://yancoranv.github.io/2026/04/14/VLA/SMPL/&title=SMPL"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://yancoranv.github.io/2026/04/14/VLA/SMPL/&is_video=false&description=SMPL"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=SMPL&body=Check out this article: https://yancoranv.github.io/2026/04/14/VLA/SMPL/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://yancoranv.github.io/2026/04/14/VLA/SMPL/&title=SMPL"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://yancoranv.github.io/2026/04/14/VLA/SMPL/&title=SMPL"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://yancoranv.github.io/2026/04/14/VLA/SMPL/&title=SMPL"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://yancoranv.github.io/2026/04/14/VLA/SMPL/&title=SMPL"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://yancoranv.github.io/2026/04/14/VLA/SMPL/&name=SMPL&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://yancoranv.github.io/2026/04/14/VLA/SMPL/&t=SMPL"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2026
+    Yan Zhanxi
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/categories/">归档</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">项目</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板！\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功！");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
