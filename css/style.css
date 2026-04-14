@@ -1168,13 +1168,13 @@ article .content table {
 }
 article .content table th,
 article .content table td {
-  border: 1.2px solid #dcd3c9;
+  border: 1px solid #8c8477 !important;
   padding: 0.7em 1.2em;
   line-height: 1.5;
 }
 article .content table th {
-  background-color: #f2ede6;
-  color: #6a635d;
+  background-color: #e6dfd5;
+  color: #544d47;
   font-weight: 700;
   text-align: left;
 }
@@ -1221,19 +1221,17 @@ article .content blockquote footer cite:before {
   content: "—";
   padding: 0 0.5em;
 }
-p > code,
-li > code,
-td > code {
+article .content code {
   font-family: "Consolas", "Menlo", "方正屏显雅宋简体", monospace;
   font-size: 0.92em;
   color: #8f6c5c;
-  background-color: #f7f5f0;
+  background-color: #f0ebe1;
   padding: 0.15em 0.4em;
   border-radius: 4px;
   margin: 0 2px;
-  border: 1px solid #e8e2d9;
+  border: 1px solid #bbaea0;
 }
-figure.highlight {
+article .content figure.highlight {
   background-color: #f7f5f0;
   border: 1px solid #e8e2d9;
   border-radius: 4px;
@@ -1241,48 +1239,56 @@ figure.highlight {
   padding: 0.5em 0;
   overflow-x: auto;
 }
-figure.highlight pre,
-figure.highlight code,
-figure.highlight table,
-figure.highlight td,
-figure.highlight tr,
-figure.highlight th {
-  background: transparent !important;
+article .content figure.highlight table {
   border: none !important;
-  padding: 0;
-  margin: 0;
+  margin: 0 !important;
 }
-figure.highlight .code {
-  padding: 0.5em 1.2em;
+article .content figure.highlight tr,
+article .content figure.highlight td,
+article .content figure.highlight th {
+  border: none !important;
+  padding: 0 !important;
 }
-figure.highlight .code pre {
+article .content figure.highlight pre,
+article .content figure.highlight code {
+  background-color: transparent !important;
+  border: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
   color: #6a635d;
-  font-family: "Consolas", "Menlo", "方正屏显雅宋简体", monospace;
-  line-height: 1.6;
 }
-figure.highlight .gutter {
-  padding: 0.5em 1em;
+article .content figure.highlight .gutter {
   border-right: 1px dashed #dcd3c9 !important;
+  padding-right: 1em !important;
+  padding-left: 1em !important;
 }
-figure.highlight .gutter pre {
+article .content figure.highlight .gutter pre {
   color: #b8a892;
   text-align: right;
   font-family: "Consolas", "Menlo", "方正屏显雅宋简体", monospace;
 }
-ul,
-ol {
+article .content figure.highlight .code {
+  padding-left: 1.2em !important;
+  padding-right: 1.2em !important;
+}
+article .content figure.highlight .code pre {
+  font-family: "Consolas", "Menlo", "方正屏显雅宋简体", monospace;
+  line-height: 1.6;
+}
+article .content ul,
+article .content ol {
   padding-left: 1.5em;
   margin: 1em 0;
 }
-ul li,
-ol li {
+article .content ul li,
+article .content ol li {
   margin: 0.5em 0;
 }
-ul li::marker,
-ol li::marker {
+article .content ul li::marker,
+article .content ol li::marker {
   color: #b8a892;
 }
-hr {
+article .content hr {
   height: 1px;
   border: none;
   border-top: 1px solid #dedbce;
