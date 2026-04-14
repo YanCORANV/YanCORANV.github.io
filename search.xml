@@ -27,7 +27,7 @@
       <link href="/2026/03/11/Music/%E4%B9%90%E7%90%86/"/>
       <url>/2026/03/11/Music/%E4%B9%90%E7%90%86/</url>
       
-        <content type="html"><![CDATA[<h1>唱名和音名</h1><ul><li>唱名 do re mi fa sol la si</li><li>音名 C D E F G A B<img src="../../../img/image-15.png" alt=""><ul><li>并非永远等价</li></ul></li></ul><h1>调号和拍号</h1><ul><li>调号 <code>1=C </code><ul><li>12 个调号</li><li><code>1=？</code> 意味着 do / 1 对应哪个音名</li></ul></li><li>拍号 $\frac{4}{4}$</li></ul><h1>记忆</h1><ol><li>唱名<img src="../../../img/image-16.png" alt=""></li><li>音名<img src="../../../img/image-17.png" alt=""></li></ol>]]></content>
+        <content type="html"><![CDATA[<h1>唱名和音名</h1><ul><li>唱名 do re mi fa sol la si</li><li>音名 C D E F G A B<img src="../../../img/image-15.png" alt=""><ul><li>并非永远等价</li></ul></li></ul><h1>调号和拍号</h1><ul><li>调号 <code>1=C </code><ul><li>12 个调号</li><li><code>1=？</code> 意味着 do / 1 对应哪个音名</li></ul></li><li>拍号 $\frac{4}{4}$</li></ul><h1>记忆</h1><ol><li>唱名<img src="../../../img/image-16.png" alt=""></li><li>音名<img src="../../../img/image-17.png" alt=""></li></ol><p>123</p>]]></content>
       
       
       <categories>
@@ -194,11 +194,11 @@
     
     
     <entry>
-      <title>实用工具</title>
-      <link href="/2026/02/13/Websites/%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7/"/>
-      <url>/2026/02/13/Websites/%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7/</url>
+      <title>编程学习</title>
+      <link href="/2026/02/13/Websites/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
+      <url>/2026/02/13/Websites/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/</url>
       
-        <content type="html"><![CDATA[<h2 id="图片处理">图片处理</h2><ul><li><a href="https://image.baidu.com/?to1=%E6%B2%83%E4%BA%94&amp;to2=179453,playshakespeare.com">百度AI图片处理</a></li><li><a href="https://www.apeaksoft.com/zh-TW/watermark-remover/editor/">图片去水印</a></li></ul><h2 id="格式转换">格式转换</h2><ul><li><a href="https://lightpdf.cn/excel-to-pdf">Excel转PDF</a></li><li><a href="https://www.freepdfconvert.com/zh-cn/excel-to-pdf#">EXCEL-PDF</a></li></ul><h2 id="文献引用">文献引用</h2><ul><li><a href="https://www.mybib.com/#/projects/5D8VQ9/citations/new/webpage">MyBib</a></li></ul><h2 id="找文献">找文献</h2><ul><li><a href="https://oa.mg/search">Oa.mg</a></li></ul><h2 id="视频资源">视频资源</h2><ul><li><a href="https://www.czzy77.com/">厂长资源</a></li></ul><h2 id="数学">数学</h2><ul><li><a href="https://www.geogebra.org/calculator">GGB</a></li></ul><h2 id="读文献">读文献</h2><ul><li><a href="https://www.aminer.cn/">Aminer</a></li></ul><h2 id="找书">找书</h2><ul><li><a href="https://webproxy.lumiproxy.com/sencure/SPsDDqtrS95VL8HaguoNw">Zlibrary</a></li></ul><h2 id="代码复制">代码复制</h2><ul><li><a href="https://pastebin.com/">CopyCode</a></li></ul>]]></content>
+        <content type="html"><![CDATA[<h2 id="学习网站">学习网站</h2><ul><li><a href="https://csdiy.wiki/">CS自学指南</a></li><li><a href="https://www.runoob.com/">菜鸟教程</a></li><li><a href="https://www.programmercarl.com/0435.%E6%97%A0%E9%87%8D%E5%8F%A0%E5%8C%BA%E9%97%B4.html">代码随想录</a></li><li><a href="https://www.learncs.site/">CS自学社区</a></li><li><a href="https://roadmap.sh/">自学路径</a></li></ul><h2 id="前端">前端</h2><ul><li><a href="https://developer.mozilla.org/zh-CN/docs/Learn_web_development/Core/Structuring_content">前端学习</a></li></ul><h2 id="大佬主页">大佬主页</h2><ul><li><a href="https://www.qzq.at/">数字游牧人个人主页</a></li><li><a href="https://hezebang.github.io/">ZAMBAR’s Website</a></li><li><a href="https://www.criwits.top/">计算机技术学习札记</a></li></ul><h2 id="Javascript">Javascript</h2><ul><li><a href="https://www.w3schools.com/signup/index.php">w3schools</a></li></ul><h2 id="论坛">论坛</h2><ul><li><a href="https://stackoverflow.com/questions/">StackOverflow</a></li><li><a href="https://www.csdn.net/">CSDN</a></li><li><a href="https://hellogithub.com/">HelloGitHub</a></li></ul><h2 id="基础">基础</h2><ul><li><a href="https://www.criwits.top/missing/">你缺失的那门计算机课</a></li></ul>]]></content>
       
       
       <categories>
@@ -213,11 +213,11 @@
     
     
     <entry>
-      <title>编程学习</title>
-      <link href="/2026/02/13/Websites/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
-      <url>/2026/02/13/Websites/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/</url>
+      <title>实用工具</title>
+      <link href="/2026/02/13/Websites/%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7/"/>
+      <url>/2026/02/13/Websites/%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7/</url>
       
-        <content type="html"><![CDATA[<h2 id="学习网站">学习网站</h2><ul><li><a href="https://csdiy.wiki/">CS自学指南</a></li><li><a href="https://www.runoob.com/">菜鸟教程</a></li><li><a href="https://www.programmercarl.com/0435.%E6%97%A0%E9%87%8D%E5%8F%A0%E5%8C%BA%E9%97%B4.html">代码随想录</a></li><li><a href="https://www.learncs.site/">CS自学社区</a></li><li><a href="https://roadmap.sh/">自学路径</a></li></ul><h2 id="前端">前端</h2><ul><li><a href="https://developer.mozilla.org/zh-CN/docs/Learn_web_development/Core/Structuring_content">前端学习</a></li></ul><h2 id="大佬主页">大佬主页</h2><ul><li><a href="https://www.qzq.at/">数字游牧人个人主页</a></li><li><a href="https://hezebang.github.io/">ZAMBAR’s Website</a></li><li><a href="https://www.criwits.top/">计算机技术学习札记</a></li></ul><h2 id="Javascript">Javascript</h2><ul><li><a href="https://www.w3schools.com/signup/index.php">w3schools</a></li></ul><h2 id="论坛">论坛</h2><ul><li><a href="https://stackoverflow.com/questions/">StackOverflow</a></li><li><a href="https://www.csdn.net/">CSDN</a></li><li><a href="https://hellogithub.com/">HelloGitHub</a></li></ul><h2 id="基础">基础</h2><ul><li><a href="https://www.criwits.top/missing/">你缺失的那门计算机课</a></li></ul>]]></content>
+        <content type="html"><![CDATA[<h2 id="图片处理">图片处理</h2><ul><li><a href="https://image.baidu.com/?to1=%E6%B2%83%E4%BA%94&amp;to2=179453,playshakespeare.com">百度AI图片处理</a></li><li><a href="https://www.apeaksoft.com/zh-TW/watermark-remover/editor/">图片去水印</a></li></ul><h2 id="格式转换">格式转换</h2><ul><li><a href="https://lightpdf.cn/excel-to-pdf">Excel转PDF</a></li><li><a href="https://www.freepdfconvert.com/zh-cn/excel-to-pdf#">EXCEL-PDF</a></li></ul><h2 id="文献引用">文献引用</h2><ul><li><a href="https://www.mybib.com/#/projects/5D8VQ9/citations/new/webpage">MyBib</a></li></ul><h2 id="找文献">找文献</h2><ul><li><a href="https://oa.mg/search">Oa.mg</a></li></ul><h2 id="视频资源">视频资源</h2><ul><li><a href="https://www.czzy77.com/">厂长资源</a></li></ul><h2 id="数学">数学</h2><ul><li><a href="https://www.geogebra.org/calculator">GGB</a></li></ul><h2 id="读文献">读文献</h2><ul><li><a href="https://www.aminer.cn/">Aminer</a></li></ul><h2 id="找书">找书</h2><ul><li><a href="https://webproxy.lumiproxy.com/sencure/SPsDDqtrS95VL8HaguoNw">Zlibrary</a></li></ul><h2 id="代码复制">代码复制</h2><ul><li><a href="https://pastebin.com/">CopyCode</a></li></ul>]]></content>
       
       
       <categories>
