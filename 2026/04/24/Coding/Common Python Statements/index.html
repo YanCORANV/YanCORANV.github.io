@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Variable Assignment Statement  1BABEL_PATH &#x3D; r&quot;D:\Desktop\Research\BABEL\train.json&quot;  全大写字母通常用来表示常量。这意味着该路径在程序运行过程中一般不会被修改 r 代表 raw string（原始字符串），在 Python 字符串中，反斜杠 \ 通常被视为转义字符（例如 \n 表示换行，\t">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Common Python Statements">
+<meta property="og:url" content="https://yancoranv.github.io/2026/04/24/Coding/Common%20Python%20Statements/index.html">
+<meta property="og:site_name" content="Hi. Yan here.">
+<meta property="og:description" content="Variable Assignment Statement  1BABEL_PATH &#x3D; r&quot;D:\Desktop\Research\BABEL\train.json&quot;  全大写字母通常用来表示常量。这意味着该路径在程序运行过程中一般不会被修改 r 代表 raw string（原始字符串），在 Python 字符串中，反斜杠 \ 通常被视为转义字符（例如 \n 表示换行，\t">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2026-04-24T00:42:11.163Z">
+<meta property="article:modified_time" content="2026-07-11T17:32:13.844Z">
+<meta property="article:author" content="Yan Zhanxi">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Common Python Statements</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Writing</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2026/04/24/Coding/GPU/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2026/04/14/Coding/SSH/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://yancoranv.github.io/2026/04/24/Coding/Common%20Python%20Statements/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://yancoranv.github.io/2026/04/24/Coding/Common%20Python%20Statements/&text=Common Python Statements"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://yancoranv.github.io/2026/04/24/Coding/Common%20Python%20Statements/&title=Common Python Statements"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://yancoranv.github.io/2026/04/24/Coding/Common%20Python%20Statements/&is_video=false&description=Common Python Statements"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Common Python Statements&body=Check out this article: https://yancoranv.github.io/2026/04/24/Coding/Common%20Python%20Statements/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://yancoranv.github.io/2026/04/24/Coding/Common%20Python%20Statements/&title=Common Python Statements"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://yancoranv.github.io/2026/04/24/Coding/Common%20Python%20Statements/&title=Common Python Statements"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://yancoranv.github.io/2026/04/24/Coding/Common%20Python%20Statements/&title=Common Python Statements"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://yancoranv.github.io/2026/04/24/Coding/Common%20Python%20Statements/&title=Common Python Statements"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://yancoranv.github.io/2026/04/24/Coding/Common%20Python%20Statements/&name=Common Python Statements&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://yancoranv.github.io/2026/04/24/Coding/Common%20Python%20Statements/&t=Common Python Statements"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        Common Python Statements
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Yan Zhanxi</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2026-04-24T00:42:11.163Z" class="dt-published" itemprop="datePublished">2026-04-24</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/Coding/">Coding</a>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <ol>
+<li>Variable Assignment Statement</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BABEL_PATH = <span class="string">r&quot;D:\Desktop\Research\BABEL\train.json&quot;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>全大写字母通常用来表示常量。这意味着该路径在程序运行过程中一般不会被修改</li>
+<li><code>r</code> 代表 raw string（原始字符串），在 Python 字符串中，反斜杠 <code>\</code> 通常被视为转义字符（例如 <code>\n</code> 表示换行，<code>\t</code> 表示制表符），而Windows 系统的路径使用反斜杠。如果不加 <code>r</code>，路径中的某些组合（如 <code>\t</code> 在 <code>\train.json</code> 中）会被误判为转义字符，导致路径解析失败。加上 <code>r</code> 后，Python 会原样处理字符串中的每一个字符</li>
+</ul>
+<ol start="2">
+<li>Make directory</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">os.makedirs(VIDEO_CACHE, exist_ok=<span class="literal">True</span>)</span><br><span class="line">os.makedirs(OUTPUT_DIR, exist_ok=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>os</code>：Python 的内置模块，提供了与操作系统交互的功能</li>
+<li><code>makedirs</code>：该函数用于创建目录。与 <code>os.mkdir</code> 不同，<code>makedirs</code> 可以创建“多级”目录。如果路径中的父目录不存在，它会自动一并创建</li>
+<li>参数一：路径变量（<code>VIDEO_CACHE</code> / <code>OUTPUT_DIR</code>）
+<ul>
+<li>这是传递给函数的第一个位置参数，表示待创建目录的路径</li>
+<li><code>VIDEO_CACHE</code> 和 <code>OUTPUT_DIR</code> 是预先定义的变量，存储了具体的路径字符串</li>
+</ul>
+</li>
+<li>参数二：<code>exist_ok=True</code>，这是一个关键字参数
+<ul>
+<li>默认情况 (<code>False</code>)：如果目标目录已经存在，Python 会抛出一个 <code>FileExistsError</code> 异常，导致程序中断</li>
+<li>设置为 <code>True</code>：如果目标目录已存在，程序将静默忽略，不报错并继续执行。如果目录不存在，则正常创建</li>
+</ul>
+</li>
+<li>假设 <code>OUTPUT_DIR</code> 的值是 <code>D:\Project\Result</code>：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>情况</th>
+<th>执行结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>D:\Project</code> 不存在</td>
+<td>函数会先创建 <code>Project</code> 文件夹，再创建 <code>Result</code> 文件夹。</td>
+</tr>
+<tr>
+<td><code>Result</code> 文件夹已存在</td>
+<td>因为 <code>exist_ok=True</code>，程序直接跳过，不会报错。</td>
+</tr>
+<tr>
+<td><code>Result</code> 是一个已存在的文件名</td>
+<td>无论 <code>exist_ok</code> 为何值，都会抛出异常，因为无法创建同名目录。</td>
+</tr>
+</tbody>
+</table>
+<ol start="3">
+<li>Context Manager</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(BABEL_PATH, <span class="string">&#x27;r&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        babel_data = json.load(f)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>with</code> 关键字启动一个上下文管理器，它负责安全地打开文件并在处理完毕后自动关闭文件，即使在读取过程中程序崩溃，<code>with</code> 也能确保文件被正确关闭，防止内存泄漏或文件损坏
+<ul>
+<li><code>BABEL_PATH</code>: 之前定义的变量，存储了文件的具体路径</li>
+<li><code>'r'</code>: Read（只读模式）。明确告诉系统我们只想读取内容，不修改</li>
+<li><code>encoding='utf-8'</code>: 指定字符编码。这在处理包含中文字符或特殊符号的 JSON 文件时至关重要，可以避免乱码</li>
+</ul>
+</li>
+<li><code>json.load()</code>: 是 Python 内置 <code>json</code> 模块的一个函数，将打开的文件对象 <code>f</code> 中的字符串内容解析并转换为 Python 的字典（dict）或列表（list），之后你就可以像操作普通字典一样操作 <code>babel_data</code>（例如：<code>babel_data['video_id']</code>）</li>
+</ul>
+<ol start="4">
+<li><code>f-string </code></li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">text = <span class="string">f&quot;do <span class="subst">&#123;action_a&#125;</span> twice&quot;</span></span><br></pre></td></tr></table></figure>
+<p>f-string 允许你在字符串中直接嵌入变量或表达式，不用 f-string 就需要用加号拼接，容易漏掉空格：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">text = <span class="string">&quot;do &quot;</span> + action_a + <span class="string">&quot; twice&quot;</span></span><br></pre></td></tr></table></figure>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/categories/">Writing</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://yancoranv.github.io/2026/04/24/Coding/Common%20Python%20Statements/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://yancoranv.github.io/2026/04/24/Coding/Common%20Python%20Statements/&text=Common Python Statements"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://yancoranv.github.io/2026/04/24/Coding/Common%20Python%20Statements/&title=Common Python Statements"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://yancoranv.github.io/2026/04/24/Coding/Common%20Python%20Statements/&is_video=false&description=Common Python Statements"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Common Python Statements&body=Check out this article: https://yancoranv.github.io/2026/04/24/Coding/Common%20Python%20Statements/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://yancoranv.github.io/2026/04/24/Coding/Common%20Python%20Statements/&title=Common Python Statements"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://yancoranv.github.io/2026/04/24/Coding/Common%20Python%20Statements/&title=Common Python Statements"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://yancoranv.github.io/2026/04/24/Coding/Common%20Python%20Statements/&title=Common Python Statements"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://yancoranv.github.io/2026/04/24/Coding/Common%20Python%20Statements/&title=Common Python Statements"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://yancoranv.github.io/2026/04/24/Coding/Common%20Python%20Statements/&name=Common Python Statements&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://yancoranv.github.io/2026/04/24/Coding/Common%20Python%20Statements/&t=Common Python Statements"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2026
+    Yan Zhanxi
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Writing</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

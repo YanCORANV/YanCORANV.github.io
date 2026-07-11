@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="先介绍 GPU 的基本知识，再讲解一下对于租借 GPU 的相关知识 GPU 基础知识 核心是什么 从硬件底层架构来看，CPU 和 GPU 的“核心”虽然都叫 Core，但设计目标和物理结构完全不同 CPU 核心：全能的“瑞士军刀” CPU 的核心（Core）被设计用来处理复杂的逻辑和顺序任务。为了最大程度降低单个任务的延迟（Latency），其硬件资源分配非常不均衡：  巨大的控制单元 (Cont">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GPU Basics">
+<meta property="og:url" content="https://yancoranv.github.io/2026/04/24/Coding/GPU/index.html">
+<meta property="og:site_name" content="Hi. Yan here.">
+<meta property="og:description" content="先介绍 GPU 的基本知识，再讲解一下对于租借 GPU 的相关知识 GPU 基础知识 核心是什么 从硬件底层架构来看，CPU 和 GPU 的“核心”虽然都叫 Core，但设计目标和物理结构完全不同 CPU 核心：全能的“瑞士军刀” CPU 的核心（Core）被设计用来处理复杂的逻辑和顺序任务。为了最大程度降低单个任务的延迟（Latency），其硬件资源分配非常不均衡：  巨大的控制单元 (Cont">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2026-04-24T00:42:11.201Z">
+<meta property="article:modified_time" content="2026-07-11T17:32:13.881Z">
+<meta property="article:author" content="Yan Zhanxi">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>GPU Basics</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Writing</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2026/04/24/Coding/Common%20Python%20Statements/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://yancoranv.github.io/2026/04/24/Coding/GPU/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://yancoranv.github.io/2026/04/24/Coding/GPU/&text=GPU Basics"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://yancoranv.github.io/2026/04/24/Coding/GPU/&title=GPU Basics"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://yancoranv.github.io/2026/04/24/Coding/GPU/&is_video=false&description=GPU Basics"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=GPU Basics&body=Check out this article: https://yancoranv.github.io/2026/04/24/Coding/GPU/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://yancoranv.github.io/2026/04/24/Coding/GPU/&title=GPU Basics"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://yancoranv.github.io/2026/04/24/Coding/GPU/&title=GPU Basics"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://yancoranv.github.io/2026/04/24/Coding/GPU/&title=GPU Basics"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://yancoranv.github.io/2026/04/24/Coding/GPU/&title=GPU Basics"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://yancoranv.github.io/2026/04/24/Coding/GPU/&name=GPU Basics&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://yancoranv.github.io/2026/04/24/Coding/GPU/&t=GPU Basics"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">GPU 基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">1.1.</span> <span class="toc-text">核心是什么</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CPU-%E6%A0%B8%E5%BF%83%EF%BC%9A%E5%85%A8%E8%83%BD%E7%9A%84%E2%80%9C%E7%91%9E%E5%A3%AB%E5%86%9B%E5%88%80%E2%80%9D"><span class="toc-number">1.1.1.</span> <span class="toc-text">CPU 核心：全能的“瑞士军刀”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GPU-%E6%A0%B8%E5%BF%83%EF%BC%9A%E7%BA%AF%E7%B2%B9%E7%9A%84%E2%80%9C%E8%AE%A1%E7%AE%97%E5%8A%B3%E5%8A%A8%E5%8A%9B%E2%80%9D"><span class="toc-number">1.1.2.</span> <span class="toc-text">GPU 核心：纯粹的“计算劳动力”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A1%AC%E4%BB%B6%E5%AF%B9%E6%AF%94%E6%80%BB%E7%BB%93"><span class="toc-number">1.1.3.</span> <span class="toc-text">硬件对比总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GPU-%E7%A7%9F%E5%80%9F%E4%B8%8E%E8%AE%A1%E8%B4%B9%E9%80%BB%E8%BE%91"><span class="toc-number">1.1.4.</span> <span class="toc-text">GPU 租借与计费逻辑</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E6%A0%B8%C2%B7%E6%97%B6%EF%BC%88Core-Hour%EF%BC%89%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-number">1.1.4.1.</span> <span class="toc-text">1. 核·时（Core-Hour）的概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E8%AE%A1%E7%AE%97%E5%85%AC%E5%BC%8F"><span class="toc-number">1.1.4.2.</span> <span class="toc-text">2. 计算公式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%AE%9E%E4%BE%8B%E8%A7%A3%E6%9E%90%EF%BC%9A10-000-%E6%A0%B8%C2%B7%E6%97%B6%E4%B8%8E-A100"><span class="toc-number">1.1.4.3.</span> <span class="toc-text">3. 实例解析：10,000 核·时与 A100</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A7%9F%E5%80%9F%E5%BB%BA%E8%AE%AE%E4%B8%8E%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">1.1.5.</span> <span class="toc-text">租借建议与注意事项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%AE%A1%E8%B4%B9%E5%B1%82%E9%9D%A2%E7%9A%84%E2%80%9C%E6%A0%B8%E5%BF%83%E2%80%9D%EF%BC%9A%E5%BD%92%E4%B8%80%E5%8C%96%E7%B3%BB%E6%95%B0"><span class="toc-number">1.1.6.</span> <span class="toc-text">1. 计费层面的“核心”：归一化系数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%A1%AC%E4%BB%B6%E5%B1%82%E9%9D%A2%E7%9A%84%E2%80%9C%E6%A0%B8%E5%BF%83%E2%80%9D%EF%BC%9ACPU-Core-vs-CUDA-Core"><span class="toc-number">1.1.7.</span> <span class="toc-text">2. 硬件层面的“核心”：CPU Core vs. CUDA Core</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF%E5%88%86%E6%9E%90"><span class="toc-number">1.1.8.</span> <span class="toc-text">3. 实际应用场景分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">1.1.9.</span> <span class="toc-text">1. 基本概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-A100-%E7%9A%84%E2%80%9C%E6%B1%87%E7%8E%87%E2%80%9D"><span class="toc-number">1.1.10.</span> <span class="toc-text">2. A100 的“汇率”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%BD%A0%E7%9A%84%E2%80%9C%E4%BD%99%E9%A2%9D%E2%80%9D%E8%83%BD%E7%94%A8%E5%A4%9A%E4%B9%85%EF%BC%9F"><span class="toc-number">1.1.11.</span> <span class="toc-text">3. 你的“余额”能用多久？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%85%B3%E9%94%AE%E6%8F%90%E9%86%92"><span class="toc-number">1.1.12.</span> <span class="toc-text">4. 关键提醒</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF%E2%80%9C%E8%8A%82%E7%82%B9%E2%80%9D-Node-%EF%BC%9F"><span class="toc-number">1.2.</span> <span class="toc-text">1. 什么是“节点” (Node)？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E4%BB%80%E4%B9%88%E6%98%AF%E2%80%9C%E9%9B%86%E7%BE%A4%E2%80%9D-Cluster-%EF%BC%9F"><span class="toc-number">1.3.</span> <span class="toc-text">2. 什么是“集群” (Cluster)？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%85%B3%E4%BA%8E%E2%80%9C%E4%B8%8D%E5%8F%AF%E8%AE%BF%E9%97%AE%E4%BA%92%E8%81%94%E7%BD%91%E2%80%9D%E7%9A%84%E8%AF%AF%E8%A7%A3"><span class="toc-number">1.4.</span> <span class="toc-text">3. 关于“不可访问互联网”的误解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.4.1.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        GPU Basics
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Yan Zhanxi</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2026-04-24T00:42:11.201Z" class="dt-published" itemprop="datePublished">2026-04-24</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/Coding/">Coding</a>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>先介绍 GPU 的基本知识，再讲解一下对于租借 GPU 的相关知识</p>
+<h1>GPU 基础知识</h1>
+<h2 id="核心是什么">核心是什么</h2>
+<p>从硬件底层架构来看，CPU 和 GPU 的“核心”虽然都叫 Core，但设计目标和物理结构完全不同</p>
+<h3 id="CPU-核心：全能的“瑞士军刀”">CPU 核心：全能的“瑞士军刀”</h3>
+<p>CPU 的核心（Core）被设计用来处理复杂的逻辑和顺序任务。为了最大程度降低单个任务的延迟（Latency），其硬件资源分配非常不均衡：</p>
+<ul>
+<li>巨大的控制单元 (Control Unit)：包含极其复杂的流水线（Pipeline）、分支预测器（Branch Predictor）和乱序执行（Out-of-Order Execution）逻辑。这使得它能在代码出现大量 <code>if-else</code> 或跳转时，依然保持高速运行</li>
+<li>庞大的缓存 (Cache)：每个核心通常配备大容量的 L1/L2 缓存及共享的 L3 缓存，目的是尽量减少访问内存（DRAM）的次数，因为内存访问非常慢</li>
+<li>计算单元 (ALU)：相比控制逻辑和缓存，实际负责加减乘除的算术逻辑单元（ALU）占用的芯片面积反而较小</li>
+</ul>
+<h3 id="GPU-核心：纯粹的“计算劳动力”">GPU 核心：纯粹的“计算劳动力”</h3>
+<p>GPU 的核心（如 NVIDIA 的 CUDA Core）目标是极致的吞吐量（Throughput）。它并不追求单个任务快，而是追求在一秒钟内完成尽可能多的计算</p>
+<ul>
+<li>精简的控制逻辑：GPU 将数十个甚至上百个核心组合成一个流式多处理器（SM, Streaming Multiprocessor）。这些核心共享同一套控制逻辑，遵循 SIMT（单指令多线程） 架构。这意味着它们必须像仪仗队一样，在同一时间执行相同的指令，只是处理的数据不同</li>
+<li>极小的缓存：GPU 核心没有巨大的缓存来存储数据，它依赖极高的显存带宽（如 HBM3）和大量的并行线程来掩盖访问延迟</li>
+<li>密集的计算单元 (ALU)：GPU 的绝大部分芯片面积都给了 ALU。一个 GPU 芯片可以容纳数千甚至上万个核心，而 CPU 通常只有几十个</li>
+</ul>
+<hr>
+<h3 id="硬件对比总结">硬件对比总结</h3>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>CPU 核心</th>
+<th>GPU 核心 (CUDA/Stream Core)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>设计目标</td>
+<td>低延迟 (Latency Oriented)</td>
+<td>高吞吐量 (Throughput Oriented)</td>
+</tr>
+<tr>
+<td>控制逻辑</td>
+<td>极其复杂 (分支预测、乱序执行)</td>
+<td>极其简单 (多核共享控制逻辑)</td>
+</tr>
+<tr>
+<td>缓存容量</td>
+<td>巨大 (MB 级别)</td>
+<td>极小 (KB 级别)</td>
+</tr>
+<tr>
+<td>并行模式</td>
+<td>SISD / MIMD (独立运行)</td>
+<td>SIMT / SIMD (集体行动)</td>
+</tr>
+<tr>
+<td>擅长领域</td>
+<td>系统逻辑、复杂算法、串行任务</td>
+<td>矩阵运算、图形渲染、深度学习训练</td>
+</tr>
+</tbody>
+</table>
+<p>简单来说，CPU 核心像是一个拥有博士学位的全才，能独立解决极其复杂的逻辑难题；而 GPU 核心更像是流水线上的一名熟练工，虽然只会简单的加减乘除，但成千上万个工人同时开工，处理规则数据的速度远超博士</p>
+<p>你在进行 VLA 研究时，是否遇到过 CPU 预处理速度跟不上 GPU 训练速度（即数据瓶颈）的情况？</p>
+<p>GPU（Graphics Processing Unit，图形处理器）的核心设计理念是大规模并行计算</p>
+<ul>
+<li>架构差异：
+<ul>
+<li>CPU：设计用于处理复杂的控制逻辑和<span style="background:#d3f8b6">串行</span>任务，核心数较少（通常为数十个），但每个核心的主频高、缓存大</li>
+<li>GPU：设计用于处理高度重复、独立的计算任务。其内部包含数千个小型计算单元（如 NVIDIA 的 CUDA Cores 或 Tensor Cores），能够同时处理海量数据</li>
+</ul>
+</li>
+<li>关键指标：
+<ol>
+<li>显存 (VRAM)：决定了你能跑多大的模型。对于 VLA 或 MLLM 任务，显存容量是首要瓶颈</li>
+<li>算力 (TFLOPS)：衡量每秒浮点运算次数。Tensor Cores（张量核心）专门为深度学习中的矩阵乘法加速，是现代 AI 研究关注的重点</li>
+<li>显存带宽 (Bandwidth)：数据在显存与核心间的传输速度，直接影响大模型的推理速度</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h3 id="GPU-租借与计费逻辑">GPU 租借与计费逻辑</h3>
+<p>在超算中心或云服务商租借 GPU 时，通常不直接按小时计费，而是使用“核·时”（Core-Hour）或“机时”作为虚拟货币进行结算。这种方式是为了统一不同性能硬件的价值</p>
+<h4 id="1-核·时（Core-Hour）的概念">1. 核·时（Core-Hour）的概念</h4>
+<p>“核·时”是一种折算后的资源单位。由于 A100、H100 与老旧的 V100 性能差异巨大，系统通过权重（Weight）来平衡成本</p>
+<h4 id="2-计算公式">2. 计算公式</h4>
+<p>$$消耗核时 = 使用显卡数量 \times 使用时间 \times 对应卡的权重$$</p>
+<h4 id="3-实例解析：10-000-核·时与-A100">3. 实例解析：10,000 核·时与 A100</h4>
+<p>根据你提供的逻辑：1 张 A100 工作 1 小时 = 100 核·时</p>
+<ul>
+<li>
+<p>可用时间计算：</p>
+<p>如果你拥有 10,000 核·时，全部用于单张 A100，则总可用时长为：</p>
+<p>$$T = \frac{10,000 \text{ 核·时}}{100 \text{ 核·时/卡时}} = 100 \text{ 小时}$$</p>
+</li>
+<li>
+<p>多卡并行场景：</p>
+<p>如果你开启一个分布式的训练任务，同时调用 8 张 A100（即一个标准节点）：</p>
+<p>每小时消耗：$8 \times 100 = 800 \text{ 核·时}$</p>
+<p>总可用时间：$\frac{10,000}{800} = 12.5 \text{ 小时}$</p>
+</li>
+</ul>
+<hr>
+<h3 id="租借建议与注意事项">租借建议与注意事项</h3>
+<ul>
+<li>显存分配：租借时需确认是“独占”还是“共享”。在做 VLA Benchmarking 等涉及大规模数据处理的任务时，务必选择独占显存，避免算力竞争导致的 <code>OutOfMemory</code> (OOM) 错误</li>
+<li>存储费用：租借 GPU 的费用通常仅包含计算资源。存储训练数据（如 AMASS, BABEL 等数据集）可能产生额外的存储空间费用</li>
+<li>环境预装：优先选择预装了 PyTorch、CUDA 驱动以及 Conda 环境的镜像，可以节省大量的配置机时（这些配置时间通常也是计费的）</li>
+</ul>
+<p>在高性能计算（HPC）和云采样计费语境下，“核”通常指代标准 CPU 逻辑核心（vCPU/Core）。它被用作一种“定价基准”或“通用货币”，用于统一衡量不同硬件资源的成本</p>
+<h3 id="1-计费层面的“核心”：归一化系数">1. 计费层面的“核心”：归一化系数</h3>
+<p>超算系统之所以将 1 张 A100 换算为 100 个“核”，主要基于以下逻辑：</p>
+<ul>
+<li>资源占用等效性：一台服务器不仅有 GPU，还配套有高配 CPU、大容量内存、InfiniBand 网卡和散热系统。当租借 1 张 A100 时，系统会预留相应的 CPU 核心（通常是 12-24 核）和内存支撑其运行</li>
+<li>成本折算：1 张 A100 的购置与维护成本远高于单个 CPU 核心。通过归一化系数（Normalization Factor），管理者可以方便地在同一套财务系统里结算 CPU 任务和 GPU 任务</li>
+</ul>
+<blockquote>
+<p>计算逻辑：</p>
+<p>假设该集群总共有 100 万核的预算，如果全部跑 CPU 任务，可以跑 100 万核·时；如果跑 A100 任务，则只能跑 $1,000,000 / 100 = 10,000$ 卡·时</p>
+</blockquote>
+<hr>
+<h3 id="2-硬件层面的“核心”：CPU-Core-vs-CUDA-Core">2. 硬件层面的“核心”：CPU Core vs. CUDA Core</h3>
+<p>计费单位里的“核”与 GPU 内部真实的硬件核心数是两个完全不同的概念：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>计费单位 (Core)</th>
+<th>GPU 内部核心 (CUDA Core)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>物理本质</td>
+<td>CPU 物理/逻辑核心</td>
+<td>GPU 运算单元 (ALU)</td>
+</tr>
+<tr>
+<td>A100 数量</td>
+<td>100（虚拟折算单位）</td>
+<td>6912（实际物理单元）</td>
+</tr>
+<tr>
+<td>职能</td>
+<td>负责调度、控制与计费</td>
+<td>负责大规模并行的矩阵/浮点运算</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="3-实际应用场景分析">3. 实际应用场景分析</h3>
+<p>以你的 10,000 核·时 预算为例，它本质上是一个“能量池”：</p>
+<ol>
+<li>
+<p>运行 CPU 任务：</p>
+<p>如果你提交一个需要 64 核 CPU 的数值模拟任务，它可以运行：</p>
+<p>$$T = \frac{10,000}{64} \approx 156.25 \text{ 小时}$$</p>
+</li>
+<li>
+<p>运行 GPU 任务 (A100)：</p>
+<p>由于 1 张 A100 消耗 100 核·时，它能运行：</p>
+<p>$$T = \frac{10,000}{100} = 100 \text{ 小时}$$</p>
+</li>
+</ol>
+<p>总结：计费时的“核”是成本权重系数。当你看到“每卡时消耗 100 核·时”时，只需将其视为 1 GPU 小时 = 100 积分，而你的账户里共有 10,000 积分</p>
+<p>这种设计确保了即便你租借的是不同型号的 GPU（例如 H100 可能是 200 核·时），系统也能用同一套“核·时”额度进行结算</p>
+<p>“机时”是超算中心的虚拟货币，“核·时”是它的单位。你可以将其理解为话费余额，而“每卡时消耗100核·时”则是话费套餐的扣费标准</p>
+<p>具体的解析与计算如下：</p>
+<h3 id="1-基本概念">1. 基本概念</h3>
+<ul>
+<li>核·时 (Core-Hour)：这是超算资源的计费单位。通常指 1 个 CPU 核心运行 1 小时所消耗的资源</li>
+<li>卡时 (GPU-Hour)：指 1 张 GPU 显卡运行 1 小时的时间</li>
+</ul>
+<h3 id="2-A100-的“汇率”">2. A100 的“汇率”</h3>
+<p>邮件中提到的“每卡时消耗 100 核·时”，意味着：</p>
+<ul>
+<li>使用 1 张 A100 显卡 1 小时 = 扣除 100 个核·时单位</li>
+</ul>
+<h3 id="3-你的“余额”能用多久？">3. 你的“余额”能用多久？</h3>
+<p>你账号里共有 10,000 核·时 的赠送机时</p>
+<ul>
+<li>
+<p>如果你只用 1 张卡（单卡作业）：</p>
+<p>$$\frac{10,000 \text{ 核·时}}{100 \text{ 核·时/小时}} = 100 \text{ 小时}$$</p>
+<p>即：你可以连续运行 100 小时的实验</p>
+</li>
+<li>
+<p>如果你用满 1 台机器的 8 张卡（全节点作业）：</p>
+<p>每小时消耗：$8 \times 100 = 800 \text{ 核·时}$</p>
+<p>总可用时长：$\frac{10,000 \text{ 核·时}}{800 \text{ 核·时/小时}} = 12.5 \text{ 小时}$</p>
+</li>
+</ul>
+<h3 id="4-关键提醒">4. 关键提醒</h3>
+<ul>
+<li>后台持续扣费：容器作业一旦创建，无论你是否关闭网页浏览器，只要作业没在“作业管理”中点击“关闭”，系统就会一直按每小时 100（或更多）核·时的速度扣费</li>
+<li>关机即省钱：配完环境或跑完程序后，务必手动终止作业，否则 100 小时的额度很快就会耗尽</li>
+</ul>
+<h2 id="1-什么是“节点”-Node-？">1. 什么是“节点” (Node)？</h2>
+<p>节点指的是一台独立的物理服务器</p>
+<ul>
+<li>直观理解：你可以把它想象成一个巨大的电脑主机，只是这个主机没有显示器</li>
+<li>你的情况：邮件里说“1个节点（8卡/节点）”，意思是你租到的这台“巨型电脑”里，插了 8 张 A100 显卡</li>
+<li>计算关系：如果你开启了一个“1卡”的作业，你只占用了这台机器 $1/8$ 的显卡资源；如果你开“8卡”，你就包下了这整台机器</li>
+</ul>
+<h2 id="2-什么是“集群”-Cluster-？">2. 什么是“集群” (Cluster)？</h2>
+<p>集群是由很多个“节点”通过高速网络连接在一起形成的服务器阵列</p>
+<ul>
+<li>直观理解：如果“节点”是一台电脑，那么“集群”就是由成百上千台这种电脑组成的电脑集群中心</li>
+<li>你的情况：你使用的 <code>k8s_xingyiai_2</code>（星逸智算集群）就是广州超算中心里专门划出来给 AI 计算用的一大片服务器区域</li>
+</ul>
+<h2 id="3-关于“不可访问互联网”的误解">3. 关于“不可访问互联网”的误解</h2>
+<p>这正是新手最容易担心的地方。请放心：你的笔记本电脑绝对不会断网</p>
+<ul>
+<li>谁不能联网？：是远在广州的那台 GPU 服务器默认不能直接上百度、GitHub 或 Hugging Face。这是为了防止黑客攻击和数据泄露的物理隔离措施</li>
+<li>你在自己电脑上操作会怎样？：你依然可以一边在浏览器里查资料、刷 B 站，一边通过 SSH 连着服务器。你的本地网络完全不受影响</li>
+<li>如果你需要服务器下载东西怎么办？：
+<ul>
+<li>这就是邮件里提到“上网代理”的原因</li>
+<li>虽然服务器默认是“孤岛”，但超算中心给你留了一个名为 Proxy（代理） 的“秘密地道”</li>
+<li>你只需要在服务器的黑框框里输入那两行 <code>export http_proxy=...</code> 代码，服务器就能通过这个地道，假装成一个普通的上网终端去下载 PyTorch 或代码库了</li>
+</ul>
+</li>
+</ul>
+<h3 id="总结">总结</h3>
+<ol>
+<li>节点 = 一台装了 8 张显卡的远程电脑</li>
+<li>集群 = 装着很多台这种电脑的机房区域</li>
+<li>不联网 = 远程那台电脑没网，你的电脑网速照旧。你想让它有网，得用邮件里的代理账号密码</li>
+</ol>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/categories/">Writing</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">GPU 基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">1.1.</span> <span class="toc-text">核心是什么</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CPU-%E6%A0%B8%E5%BF%83%EF%BC%9A%E5%85%A8%E8%83%BD%E7%9A%84%E2%80%9C%E7%91%9E%E5%A3%AB%E5%86%9B%E5%88%80%E2%80%9D"><span class="toc-number">1.1.1.</span> <span class="toc-text">CPU 核心：全能的“瑞士军刀”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GPU-%E6%A0%B8%E5%BF%83%EF%BC%9A%E7%BA%AF%E7%B2%B9%E7%9A%84%E2%80%9C%E8%AE%A1%E7%AE%97%E5%8A%B3%E5%8A%A8%E5%8A%9B%E2%80%9D"><span class="toc-number">1.1.2.</span> <span class="toc-text">GPU 核心：纯粹的“计算劳动力”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A1%AC%E4%BB%B6%E5%AF%B9%E6%AF%94%E6%80%BB%E7%BB%93"><span class="toc-number">1.1.3.</span> <span class="toc-text">硬件对比总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GPU-%E7%A7%9F%E5%80%9F%E4%B8%8E%E8%AE%A1%E8%B4%B9%E9%80%BB%E8%BE%91"><span class="toc-number">1.1.4.</span> <span class="toc-text">GPU 租借与计费逻辑</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E6%A0%B8%C2%B7%E6%97%B6%EF%BC%88Core-Hour%EF%BC%89%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-number">1.1.4.1.</span> <span class="toc-text">1. 核·时（Core-Hour）的概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E8%AE%A1%E7%AE%97%E5%85%AC%E5%BC%8F"><span class="toc-number">1.1.4.2.</span> <span class="toc-text">2. 计算公式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%AE%9E%E4%BE%8B%E8%A7%A3%E6%9E%90%EF%BC%9A10-000-%E6%A0%B8%C2%B7%E6%97%B6%E4%B8%8E-A100"><span class="toc-number">1.1.4.3.</span> <span class="toc-text">3. 实例解析：10,000 核·时与 A100</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A7%9F%E5%80%9F%E5%BB%BA%E8%AE%AE%E4%B8%8E%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">1.1.5.</span> <span class="toc-text">租借建议与注意事项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%AE%A1%E8%B4%B9%E5%B1%82%E9%9D%A2%E7%9A%84%E2%80%9C%E6%A0%B8%E5%BF%83%E2%80%9D%EF%BC%9A%E5%BD%92%E4%B8%80%E5%8C%96%E7%B3%BB%E6%95%B0"><span class="toc-number">1.1.6.</span> <span class="toc-text">1. 计费层面的“核心”：归一化系数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%A1%AC%E4%BB%B6%E5%B1%82%E9%9D%A2%E7%9A%84%E2%80%9C%E6%A0%B8%E5%BF%83%E2%80%9D%EF%BC%9ACPU-Core-vs-CUDA-Core"><span class="toc-number">1.1.7.</span> <span class="toc-text">2. 硬件层面的“核心”：CPU Core vs. CUDA Core</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF%E5%88%86%E6%9E%90"><span class="toc-number">1.1.8.</span> <span class="toc-text">3. 实际应用场景分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">1.1.9.</span> <span class="toc-text">1. 基本概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-A100-%E7%9A%84%E2%80%9C%E6%B1%87%E7%8E%87%E2%80%9D"><span class="toc-number">1.1.10.</span> <span class="toc-text">2. A100 的“汇率”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%BD%A0%E7%9A%84%E2%80%9C%E4%BD%99%E9%A2%9D%E2%80%9D%E8%83%BD%E7%94%A8%E5%A4%9A%E4%B9%85%EF%BC%9F"><span class="toc-number">1.1.11.</span> <span class="toc-text">3. 你的“余额”能用多久？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%85%B3%E9%94%AE%E6%8F%90%E9%86%92"><span class="toc-number">1.1.12.</span> <span class="toc-text">4. 关键提醒</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF%E2%80%9C%E8%8A%82%E7%82%B9%E2%80%9D-Node-%EF%BC%9F"><span class="toc-number">1.2.</span> <span class="toc-text">1. 什么是“节点” (Node)？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E4%BB%80%E4%B9%88%E6%98%AF%E2%80%9C%E9%9B%86%E7%BE%A4%E2%80%9D-Cluster-%EF%BC%9F"><span class="toc-number">1.3.</span> <span class="toc-text">2. 什么是“集群” (Cluster)？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%85%B3%E4%BA%8E%E2%80%9C%E4%B8%8D%E5%8F%AF%E8%AE%BF%E9%97%AE%E4%BA%92%E8%81%94%E7%BD%91%E2%80%9D%E7%9A%84%E8%AF%AF%E8%A7%A3"><span class="toc-number">1.4.</span> <span class="toc-text">3. 关于“不可访问互联网”的误解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.4.1.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://yancoranv.github.io/2026/04/24/Coding/GPU/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://yancoranv.github.io/2026/04/24/Coding/GPU/&text=GPU Basics"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://yancoranv.github.io/2026/04/24/Coding/GPU/&title=GPU Basics"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://yancoranv.github.io/2026/04/24/Coding/GPU/&is_video=false&description=GPU Basics"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=GPU Basics&body=Check out this article: https://yancoranv.github.io/2026/04/24/Coding/GPU/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://yancoranv.github.io/2026/04/24/Coding/GPU/&title=GPU Basics"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://yancoranv.github.io/2026/04/24/Coding/GPU/&title=GPU Basics"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://yancoranv.github.io/2026/04/24/Coding/GPU/&title=GPU Basics"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://yancoranv.github.io/2026/04/24/Coding/GPU/&title=GPU Basics"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://yancoranv.github.io/2026/04/24/Coding/GPU/&name=GPU Basics&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://yancoranv.github.io/2026/04/24/Coding/GPU/&t=GPU Basics"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2026
+    Yan Zhanxi
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Writing</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
